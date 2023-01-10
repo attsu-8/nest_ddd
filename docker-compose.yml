@@ -1,0 +1,23 @@
+# versionは3系が最新版で、versionによって書き方が異なる
+version: "3"
+services:
+  #########################################################
+  # database env
+  #########################################################
+  db:
+    container_name: my-app
+    build:
+      context: ./db/env/.
+      dockerfile: Dockerfile
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: my-app
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./db/db_volume:/var/lib/mysql
+      - ./db/sql:/docker-entrypoint-initdb.d
