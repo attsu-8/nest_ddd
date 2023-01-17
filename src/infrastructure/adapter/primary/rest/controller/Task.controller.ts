@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  // Delete,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -10,15 +10,9 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { CreateTaskUseCasePort } from 'src/core/port/primary/useCase/CreateTaskUseCasePort';
+import { DeleteTaskUseCasePort } from 'src/core/port/primary/useCase/DeleteTaskUseCasePort';
 import { GetAllTasksUseCasePort } from 'src/core/port/primary/useCase/GetAllTasksUseCasePort';
 import { UpdateTaskUseCasePort } from 'src/core/port/primary/useCase/UpdateTaskUseCasePort';
-// import { CreateTaskCommand } from '../../application/use-case/commands/create-task.command';
-// import { DeleteTaskCommand } from '../../application/use-case/commands/delete-task.command';
-// import { UpdateTaskCommand } from '../../application/use-case/commands/update-task.command';
-// import { CreateTaskUseCase } from '../../application/use-case/create-task.usecase';
-// import { DeleteTaskUseCase } from '../../application/use-case/delete-task.usecase';
-// import { GetAllTasksUseCase } from '../../application/use-case/get-all-tasks.usecase';
-// import { UpdateTaskUseCase } from '../../application/use-case/update-task.usecase';
 import {
   DefaultExceptionPresenter,
   UnexpectedExceptionPresenter,
@@ -30,7 +24,7 @@ import {
   CreateTaskResponseDto,
   UpdateTaskRequestDto,
   UpdateTaskResponseDto,
-  // DeleteTaskResponseDto,
+  DeleteTaskResponseDto,
 } from './Task.controller.dtos';
 
 @Controller('tasks')
@@ -38,7 +32,7 @@ import {
 export class TaskController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCasePort,
-    // private readonly deleteTaskUseCase: DeleteTaskUseCase,
+    private readonly deleteTaskUseCase: DeleteTaskUseCasePort,
     private readonly getAllTasksUseCase: GetAllTasksUseCasePort,
     private readonly updateTaskUseCase: UpdateTaskUseCasePort,
   ) {}
@@ -75,10 +69,12 @@ export class TaskController {
     return { statusCode: HttpStatus.OK };
   }
 
-  // @Delete('/:id')
-  // async deleteOne(@Param('id') id: string): Promise<DeleteTaskResponseDto> {
-  //   await this.deleteTaskUseCase.handle(new DeleteTaskCommand(Number(id)));
+  @Delete('/:id')
+  async deleteOne(@Param('id') id: string): Promise<DeleteTaskResponseDto> {
+    await this.deleteTaskUseCase.handle({
+      id: Number(id),
+    });
 
-  //   return { statusCode: HttpStatus.OK };
-  // }
+    return { statusCode: HttpStatus.OK };
+  }
 }
