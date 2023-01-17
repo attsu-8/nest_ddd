@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { DuplicateTaskChecker } from 'src/core/domain/task/service/DuplicateTaskChecker';
 import { TaskName } from 'src/core/domain/task/valueObject/TaskName';
+import {
+  CreateTaskCommand,
+  CreateTaskUseCasePort,
+} from 'src/core/port/primary/useCase/CreateTaskUseCasePort';
 import { NewTaskCreatorPort } from 'src/core/port/secondary/factory/NewTaskCreatorPort';
 import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
 import { Exception } from 'src/exception';
-import { CreateTaskCommand } from './commands/CreateTaskCommand';
 
 @Injectable()
-export class CreateTaskUseCase {
+export class CreateTaskUseCase implements CreateTaskUseCasePort {
   constructor(
     private readonly duplicateTaskChecker: DuplicateTaskChecker,
     private readonly newTaskCreator: NewTaskCreatorPort,

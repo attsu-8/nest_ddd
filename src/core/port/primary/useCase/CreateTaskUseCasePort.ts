@@ -1,4 +1,6 @@
-import { CreateTaskCommand } from 'src/core/application/useCase/commands/CreateTaskCommand';
+export interface CreateTaskCommand {
+  name: string;
+}
 
 export abstract class CreateTaskUseCasePort {
   abstract handle(createTaskCommand: CreateTaskCommand): Promise<void>;
