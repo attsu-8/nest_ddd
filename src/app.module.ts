@@ -7,7 +7,9 @@ import { Module } from '@nestjs/common';
 import { CreateTaskUseCase } from './core/application/useCase/CreateTaskUseCase';
 import { GetAllTasksUseCase } from './core/application/useCase/GetAllTasksUseCase';
 import { DuplicateTaskChecker } from './core/domain/task/service/DuplicateTaskChecker';
+import { ControllerModule } from './infrastructure/adapter/primary/rest/controller/ControllerModule';
 import { TaskController } from './infrastructure/adapter/primary/rest/controller/Task.controller';
+import { FactoryModule } from './infrastructure/adapter/secondary/factory/FactoryModule';
 import { NewTaskCreatorAdapter } from './infrastructure/adapter/secondary/factory/NewTaskCreatorAdapter';
 import { RepositoryModule } from './infrastructure/adapter/secondary/repository/RepositoryModule';
 // import { PrismaService } from './prisma.service';
@@ -19,6 +21,8 @@ import { RepositoryModule } from './infrastructure/adapter/secondary/repository/
     //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     // }),
     RepositoryModule.register(process.env.REPOSITORY_TYPE),
+    FactoryModule,
+    ControllerModule,
   ],
   controllers: [TaskController],
   // providers: [AppService, PrismaService, PostsResolver],

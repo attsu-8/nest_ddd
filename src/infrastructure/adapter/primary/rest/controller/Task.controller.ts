@@ -9,9 +9,8 @@ import {
   // Put,
   UseFilters,
 } from '@nestjs/common';
-import { CreateTaskCommand } from 'src/core/application/useCase/commands/create-task.command';
-import { CreateTaskUseCase } from 'src/core/application/useCase/CreateTaskUseCase';
-import { GetAllTasksUseCase } from 'src/core/application/useCase/GetAllTasksUseCase';
+import { CreateTaskUseCasePort } from 'src/core/port/primary/useCase/CreateTaskUseCasePort';
+import { GetAllTasksUseCasePort } from 'src/core/port/primary/useCase/GetAllTasksUseCasePort';
 
 // import { CreateTaskCommand } from '../../application/use-case/commands/create-task.command';
 // import { DeleteTaskCommand } from '../../application/use-case/commands/delete-task.command';
@@ -38,9 +37,9 @@ import {
 @UseFilters(DefaultExceptionPresenter, UnexpectedExceptionPresenter)
 export class TaskController {
   constructor(
-    private readonly createTaskUseCase: CreateTaskUseCase,
+    private readonly createTaskUseCase: CreateTaskUseCasePort,
     // private readonly deleteTaskUseCase: DeleteTaskUseCase,
-    private readonly getAllTasksUseCase: GetAllTasksUseCase, // private readonly updateTaskUseCase: UpdateTaskUseCase,
+    private readonly getAllTasksUseCase: GetAllTasksUseCasePort, // private readonly updateTaskUseCase: UpdateTaskUseCase,
   ) {}
 
   @Get()
@@ -54,9 +53,9 @@ export class TaskController {
   async createOne(
     @Body() createTaskRequestDto: CreateTaskRequestDto,
   ): Promise<CreateTaskResponseDto> {
-    await this.createTaskUseCase.handle(
-      new CreateTaskCommand(createTaskRequestDto.name),
-    );
+    await this.createTaskUseCase.handle({
+      name: createTaskRequestDto.name,
+    });
 
     return { statusCode: HttpStatus.OK };
   }
