@@ -9,10 +9,10 @@ import {
   Put,
   UseFilters,
 } from '@nestjs/common';
-import { CreateTaskUseCasePort } from 'src/core/port/primary/useCase/CreateTaskUseCasePort';
-import { DeleteTaskUseCasePort } from 'src/core/port/primary/useCase/DeleteTaskUseCasePort';
-import { GetAllTasksUseCasePort } from 'src/core/port/primary/useCase/GetAllTasksUseCasePort';
-import { UpdateTaskUseCasePort } from 'src/core/port/primary/useCase/UpdateTaskUseCasePort';
+import { CreateTaskUseCasePort } from 'src/core/port/primary/task/useCase/CreateTaskUseCasePort';
+import { DeleteTaskUseCasePort } from 'src/core/port/primary/task/useCase/DeleteTaskUseCasePort';
+import { GetAllTasksUseCasePort } from 'src/core/port/primary/task/useCase/GetAllTasksUseCasePort';
+import { UpdateTaskUseCasePort } from 'src/core/port/primary/task/useCase/UpdateTaskUseCasePort';
 import {
   DefaultExceptionPresenter,
   UnexpectedExceptionPresenter,

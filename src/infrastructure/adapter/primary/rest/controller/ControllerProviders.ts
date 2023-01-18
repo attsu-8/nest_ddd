@@ -1,11 +1,11 @@
-import { CreateTaskUseCase } from 'src/core/application/useCase/CreateTaskUseCase';
-import { DeleteTaskUseCase } from 'src/core/application/useCase/DeleteTaskUseCase';
-import { GetAllTasksUseCase } from 'src/core/application/useCase/GetAllTasksUseCase';
-import { UpdateTaskUseCase } from 'src/core/application/useCase/UpdateTaskUseCase';
-import { CreateTaskUseCasePort } from 'src/core/port/primary/useCase/CreateTaskUseCasePort';
-import { DeleteTaskUseCasePort } from 'src/core/port/primary/useCase/DeleteTaskUseCasePort';
-import { GetAllTasksUseCasePort } from 'src/core/port/primary/useCase/GetAllTasksUseCasePort';
-import { UpdateTaskUseCasePort } from 'src/core/port/primary/useCase/UpdateTaskUseCasePort';
+import { CreateTaskUseCase } from 'src/core/application/task/useCase/CreateTaskUseCase';
+import { DeleteTaskUseCase } from 'src/core/application/task/useCase/DeleteTaskUseCase';
+import { GetAllTasksUseCase } from 'src/core/application/task/useCase/GetAllTasksUseCase';
+import { UpdateTaskUseCase } from 'src/core/application/task/useCase/UpdateTaskUseCase';
+import { CreateTaskUseCasePort } from 'src/core/port/primary/task/useCase/CreateTaskUseCasePort';
+import { DeleteTaskUseCasePort } from 'src/core/port/primary/task/useCase/DeleteTaskUseCasePort';
+import { GetAllTasksUseCasePort } from 'src/core/port/primary/task/useCase/GetAllTasksUseCasePort';
+import { UpdateTaskUseCasePort } from 'src/core/port/primary/task/useCase/UpdateTaskUseCasePort';
 
 export default [
   {

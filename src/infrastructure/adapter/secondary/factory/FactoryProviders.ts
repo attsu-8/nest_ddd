@@ -1,4 +1,4 @@
-import { NewTaskCreatorPort } from 'src/core/port/secondary/factory/NewTaskCreatorPort';
+import { NewTaskCreatorPort } from 'src/core/port/secondary/task/factory/NewTaskCreatorPort';
 import { NewTaskCreatorAdapter } from './NewTaskCreatorAdapter';
 
 export default [

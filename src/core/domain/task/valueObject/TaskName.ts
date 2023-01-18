@@ -1,4 +1,4 @@
-import { Exception } from 'src/exception';
+import { Exception } from 'src/shared/exception';
 
 export class TaskName {
   private _value: string;

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import {
   DeleteTaskCommand,
   DeleteTaskUseCasePort,
-} from 'src/core/port/primary/useCase/DeleteTaskUseCasePort';
-import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
+} from 'src/core/port/primary/task/useCase/DeleteTaskUseCasePort';
+import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
 
 @Injectable()
 export class DeleteTaskUseCase implements DeleteTaskUseCasePort {

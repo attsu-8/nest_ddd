@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
 import { RepositoryModule } from '../repository/RepositoryModule';
 import FactoryProviders from './FactoryProviders';
 

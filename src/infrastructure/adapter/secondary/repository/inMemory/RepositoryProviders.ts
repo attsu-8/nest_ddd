@@ -1,4 +1,4 @@
-import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
+import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
 import { TaskInMemoryRepositoryAdapter } from './TaskInMemoryRepositoryAdapter';
 
 export default [
