@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { NewTaskCreatorPort } from 'src/core/port/secondary/task/factory/NewTaskCreatorPort';
 import { RepositoryModule } from '../repository/Repository.module';
 import { NewTaskCreatorAdapter } from './NewTaskCreatorAdapter';
 
-const factoryProviders = [
+const factoryProviders: Provider<NewTaskCreatorAdapter>[] = [
   {
     provide: NewTaskCreatorPort,
     useClass: NewTaskCreatorAdapter,
