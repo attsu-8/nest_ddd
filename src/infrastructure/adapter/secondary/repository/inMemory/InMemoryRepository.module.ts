@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
 
 import { TaskInMemoryRepositoryAdapter } from './TaskInMemoryRepositoryAdapter';
 
-const repositoryProviders = [
+const repositoryProviders: Provider<TaskInMemoryRepositoryAdapter>[] = [
   // Repository
   {
     provide: TaskRepositoryPort,

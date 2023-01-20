@@ -11,7 +11,9 @@ import { DeleteTaskUseCase } from './DeleteTaskUseCase';
 import { GetAllTasksUseCase } from './GetAllTasksUseCase';
 import { UpdateTaskUseCase } from './UpdateTaskUseCase';
 
-const useCaseProviders: Provider[] = [
+const useCaseProviders: Provider<
+  CreateTaskUseCase | GetAllTasksUseCase | UpdateTaskUseCase | DeleteTaskUseCase
+>[] = [
   {
     provide: CreateTaskUseCasePort,
     useClass: CreateTaskUseCase,
