@@ -5,7 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { Exception } from 'src/exception';
+import { Exception } from 'src/shared/exception';
 
 @Catch(Exception)
 export class DefaultExceptionPresenter implements ExceptionFilter {

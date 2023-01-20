@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { TaskEntity } from 'src/core/domain/task/TaskEntity';
 import { TaskName } from 'src/core/domain/task/valueObject/TaskName';
-import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
+import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
 
 @Injectable()
 export class TaskInMemoryRepositoryAdapter implements TaskRepositoryPort {

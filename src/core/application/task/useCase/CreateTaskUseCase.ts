@@ -4,10 +4,10 @@ import { TaskName } from 'src/core/domain/task/valueObject/TaskName';
 import {
   CreateTaskCommand,
   CreateTaskUseCasePort,
-} from 'src/core/port/primary/useCase/CreateTaskUseCasePort';
-import { NewTaskCreatorPort } from 'src/core/port/secondary/factory/NewTaskCreatorPort';
-import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
-import { Exception } from 'src/exception';
+} from 'src/core/port/primary/task/useCase/CreateTaskUseCasePort';
+import { NewTaskCreatorPort } from 'src/core/port/secondary/task/factory/NewTaskCreatorPort';
+import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
+import { Exception } from 'src/shared/exception';
 
 @Injectable()
 export class CreateTaskUseCase implements CreateTaskUseCasePort {

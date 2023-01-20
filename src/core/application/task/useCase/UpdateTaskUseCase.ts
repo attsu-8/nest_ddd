@@ -4,9 +4,9 @@ import { TaskName } from 'src/core/domain/task/valueObject/TaskName';
 import {
   UpdateTaskCommand,
   UpdateTaskUseCasePort,
-} from 'src/core/port/primary/useCase/UpdateTaskUseCasePort';
-import { TaskRepositoryPort } from 'src/core/port/secondary/repository/TaskRepositoryPort';
-import { Exception } from 'src/exception';
+} from 'src/core/port/primary/task/useCase/UpdateTaskUseCasePort';
+import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
+import { Exception } from 'src/shared/exception';
 
 @Injectable()
 export class UpdateTaskUseCase implements UpdateTaskUseCasePort {

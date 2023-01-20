@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { Exception } from 'src/exception';
-import { InMemoryRepositoryModule } from './inMemory/Module';
+import { Exception } from 'src/shared/exception';
+import { InMemoryRepositoryModule } from './inMemory/InMemoryRepository.module';
 
 type RepositoryType = typeof process.env.REPOSITORY_TYPE;
 
