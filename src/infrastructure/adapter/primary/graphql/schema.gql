@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Mutation {
+  createOne(name: String!): Boolean!
+  deleteOne(id: Float!): Boolean!
+  updateOne(done: Boolean!, id: Float!, name: String!): Boolean!
+}
+
 type Query {
   getAllTasks: [Task!]!
 }
