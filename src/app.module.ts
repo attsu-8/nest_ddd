@@ -12,7 +12,10 @@ import { RepositoryModule } from './infrastructure/adapter/secondary/repository/
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(
+        process.cwd(),
+        'src/infrastructure/adapter/primary/graphql/schema.gql',
+      ),
       sortSchema: true,
       driver: ApolloDriver,
     }),
