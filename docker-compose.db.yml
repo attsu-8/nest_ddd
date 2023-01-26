@@ -1,0 +1,44 @@
+version: '3'
+
+volumes:
+  mysql-data:
+
+    null
+
+networks:
+  nest-ddd:
+    driver: bridge
+    name: nest-ddd
+
+services:
+  mysql:
+    image: mysql:8.0
+    platform: linux/x86_64
+    ports:
+      - "13306:3306"
+    networks:
+      nest-ddd:
+        aliases:
+          - mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: my-app
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      # - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-data:/var/lib/mysql
+
+  localdb.wait:
+    build:
+      context: .
+      dockerfile: ./docker/busybox/Dockerfile
+    environment:
+      - WAIT_HOSTS=mysql:3306
+    networks:
+      nest-ddd: null
+    depends_on:
+      - mysql
+    command: /bin/wait
