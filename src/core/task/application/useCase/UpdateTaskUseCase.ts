@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { DuplicateTaskChecker } from 'src/core/domain/task/service/DuplicateTaskChecker';
-import { TaskName } from 'src/core/domain/task/valueObject/TaskName';
+import { DuplicateTaskChecker } from 'src/core/task/domain/service/DuplicateTaskChecker';
 import {
   UpdateTaskCommand,
   UpdateTaskUseCasePort,
-} from 'src/core/port/primary/task/useCase/UpdateTaskUseCasePort';
-import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
+} from 'src/core/task/port/primary/useCase/UpdateTaskUseCasePort';
 import { Exception } from 'src/shared/exception';
+import { TaskName } from '../../domain/valueObject/TaskName';
+import { TaskRepositoryPort } from '../../port/secondary/repository/TaskRepositoryPort';
 
 @Injectable()
 export class UpdateTaskUseCase implements UpdateTaskUseCasePort {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
+import { TaskRepositoryPort } from '../../port/secondary/repository/TaskRepositoryPort';
 import { TaskEntity } from '../TaskEntity';
 
 @Injectable()

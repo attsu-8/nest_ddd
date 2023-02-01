@@ -1,5 +1,5 @@
 import { Module, Provider } from '@nestjs/common';
-import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
+import { TaskRepositoryPort } from 'src/core/task/port/secondary/repository/TaskRepositoryPort';
 import { PrismaService } from './Prisma.service';
 import { TaskPrismaRepositoryAdapter } from './TaskPrismaRepositoryAdapter';
 
@@ -15,4 +15,4 @@ const repositoryProviders: Provider<TaskPrismaRepositoryAdapter>[] = [
   providers: [...repositoryProviders, PrismaService],
   exports: [...repositoryProviders, PrismaService],
 })
-export class PrismaRepositoryModule {}
+export class PrismaRepositoryAdapterModule {}

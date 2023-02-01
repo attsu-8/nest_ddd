@@ -1,5 +1,5 @@
 import { Module, Provider } from '@nestjs/common';
-import { TaskRepositoryPort } from 'src/core/port/secondary/task/repository/TaskRepositoryPort';
+import { TaskRepositoryPort } from 'src/core/task/port/secondary/repository/TaskRepositoryPort';
 
 import { TaskInMemoryRepositoryAdapter } from './TaskInMemoryRepositoryAdapter';
 
