@@ -1,5 +1,5 @@
-import { TaskEntity } from 'src/core/domain/task/TaskEntity';
-import { TaskName } from 'src/core/domain/task/valueObject/TaskName';
+import { TaskEntity } from 'src/core/task/domain/TaskEntity';
+import { TaskName } from 'src/core/task/domain/valueObject/TaskName';
 
 export abstract class TaskRepositoryPort {
   abstract getAll(): Promise<TaskEntity[]>;

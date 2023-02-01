@@ -1,8 +1,8 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateTaskUseCasePort } from 'src/core/port/primary/task/useCase/CreateTaskUseCasePort';
-import { DeleteTaskUseCasePort } from 'src/core/port/primary/task/useCase/DeleteTaskUseCasePort';
-import { GetAllTasksUseCasePort } from 'src/core/port/primary/task/useCase/GetAllTasksUseCasePort';
-import { UpdateTaskUseCasePort } from 'src/core/port/primary/task/useCase/UpdateTaskUseCasePort';
+import { CreateTaskUseCasePort } from 'src/core/task/port/primary/useCase/CreateTaskUseCasePort';
+import { DeleteTaskUseCasePort } from 'src/core/task/port/primary/useCase/DeleteTaskUseCasePort';
+import { GetAllTasksUseCasePort } from 'src/core/task/port/primary/useCase/GetAllTasksUseCasePort';
+import { UpdateTaskUseCasePort } from 'src/core/task/port/primary/useCase/UpdateTaskUseCasePort';
 import { Task } from '../models/Task.model';
 
 @Resolver()

@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { TaskEntity } from 'src/core/domain/task/TaskEntity';
+import { TaskEntity } from 'src/core/task/domain/TaskEntity';
 
 export class GetAllTasksResponseDto {
   // The property name 'statusCode' is derived from nestjs exception.

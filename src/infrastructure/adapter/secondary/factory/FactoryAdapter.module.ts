@@ -1,6 +1,6 @@
 import { Module, Provider } from '@nestjs/common';
-import { NewTaskCreatorPort } from 'src/core/port/secondary/task/factory/NewTaskCreatorPort';
-import { RepositoryModule } from '../repository/Repository.module';
+import { NewTaskCreatorPort } from 'src/core/task/port/secondary/factory/NewTaskCreatorPort';
+import { RepositoryAdapterModule } from '../repository/RepositoryAdapter.module';
 import { NewTaskCreatorAdapter } from './NewTaskCreatorAdapter';
 
 const factoryProviders: Provider<NewTaskCreatorAdapter>[] = [
@@ -11,8 +11,8 @@ const factoryProviders: Provider<NewTaskCreatorAdapter>[] = [
 ];
 
 @Module({
-  imports: [RepositoryModule.register(process.env.REPOSITORY_TYPE)],
+  imports: [RepositoryAdapterModule.register(process.env.REPOSITORY_TYPE)],
   providers: [...factoryProviders],
   exports: [...factoryProviders],
 })
-export class FactoryModule {}
+export class FactoryAdapterModule {}

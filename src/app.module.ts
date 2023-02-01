@@ -2,12 +2,11 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { TaskUseCaseModule } from './core/application/task/useCase/TaskUseCase.module';
-import { TaskDomainServiceModule } from './core/domain/task/service/TaskDomainService.module';
-import { TaskModule } from './infrastructure/adapter/primary/graphql/TaskModule.module';
+import { TaskDomainModule } from './core/task/TaskDomain.module';
+import { GraphQLAdapterModule } from './infrastructure/adapter/primary/graphql/GraphQLAdapterModule.module';
 import { TaskController } from './infrastructure/adapter/primary/rest/controller/Task.controller';
-import { FactoryModule } from './infrastructure/adapter/secondary/factory/Factory.module';
-import { RepositoryModule } from './infrastructure/adapter/secondary/repository/Repository.module';
+import { FactoryAdapterModule } from './infrastructure/adapter/secondary/factory/FactoryAdapter.module';
+import { RepositoryAdapterModule } from './infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
 
 @Module({
   imports: [
@@ -19,11 +18,10 @@ import { RepositoryModule } from './infrastructure/adapter/secondary/repository/
       sortSchema: true,
       driver: ApolloDriver,
     }),
-    RepositoryModule.register(process.env.REPOSITORY_TYPE),
-    FactoryModule,
-    TaskUseCaseModule,
-    TaskDomainServiceModule,
-    TaskModule,
+    RepositoryAdapterModule.register(process.env.REPOSITORY_TYPE),
+    FactoryAdapterModule,
+    TaskDomainModule,
+    GraphQLAdapterModule,
   ],
   controllers: [TaskController],
 })
