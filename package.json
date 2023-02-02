@@ -71,7 +71,10 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^shared/exception$": "<rootDir>/shared/exception.ts"
+    }
   },
   "prisma": {
     "schema": "src/infrastructure/adapter/secondary/repository/prisma/schema.prisma"
