@@ -62,7 +62,6 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -72,9 +71,7 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^shared/exception$": "<rootDir>/shared/exception.ts"
-    }
+    "moduleDirectories": ["node_modules", "<rootDir>"]
   },
   "prisma": {
     "schema": "src/infrastructure/adapter/secondary/repository/prisma/schema.prisma"

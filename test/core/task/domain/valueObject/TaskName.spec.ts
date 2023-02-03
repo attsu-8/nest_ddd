@@ -1,4 +1,4 @@
-import { TaskName } from 'core/task/domain/valueObject/TaskName';
+import { TaskName } from 'src/core/task/domain/valueObject/TaskName';
 
 describe('# TaskName', () => {
   test('hoge', () => {
