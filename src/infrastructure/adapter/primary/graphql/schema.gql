@@ -2,18 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type BacklogItem {
+  backlogItemPriority: Float!
+  description: String!
+  id: ID!
+  story: String!
+  storyPoint: Float!
+  tasks: [Task!]!
+}
+
 type Mutation {
-  createOne(name: String!): Boolean!
-  deleteOne(id: Float!): Boolean!
-  updateOne(done: Boolean!, id: Float!, name: String!): Boolean!
+  createOne(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!): Float!
 }
 
 type Query {
-  getAllTasks: [Task!]!
+  getAllTasks: [BacklogItem!]!
 }
 
 type Task {
-  done: Boolean!
+  deadline: String!
+  description: String
   id: ID!
-  name: String!
+  status: Float!
+  taskName: String!
+  userId: Float!
 }

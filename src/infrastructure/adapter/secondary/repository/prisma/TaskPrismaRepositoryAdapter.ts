@@ -1,77 +1,77 @@
-import { Injectable } from '@nestjs/common';
-import { TaskEntity } from 'src/core/task/domain/TaskEntity';
-import { TaskName } from 'src/core/task/domain/valueObject/TaskName';
-import { TaskRepositoryPort } from 'src/core/task/port/secondary/repository/TaskRepositoryPort';
-import { PrismaService } from './Prisma.service';
+// import { Injectable } from '@nestjs/common';
+// import { TaskEntity } from 'src/core/task/domain/TaskEntitya';
+// import { TaskName } from 'src/core/task/domain/valueObject/TaskName';
+// import { TaskRepositoryPort } from 'src/core/task/port/secondary/repository/TaskRepositoryPort';
+// import { PrismaService } from './Prisma.service';
 
-@Injectable()
-export class TaskPrismaRepositoryAdapter implements TaskRepositoryPort {
-  constructor(private prisma: PrismaService) {}
-  async getAll(): Promise<TaskEntity[]> {
-    const tasks = await this.prisma.task.findMany();
+// @Injectable()
+// export class TaskPrismaRepositoryAdapter implements TaskRepositoryPort {
+//   constructor(private prisma: PrismaService) {}
+//   async getAll(): Promise<TaskEntity[]> {
+//     const tasks = await this.prisma.task.findMany();
 
-    const taskEntities = tasks.map((task) => {
-      return new TaskEntity(task.id, new TaskName(task.name), task.done);
-    });
+//     const taskEntities = tasks.map((task) => {
+//       return new TaskEntity(task.id, new TaskName(task.name), task.done);
+//     });
 
-    return taskEntities;
-  }
+//     return taskEntities;
+//   }
 
-  async save(task: TaskEntity): Promise<void> {
-    await this.prisma.task.create({
-      data: {
-        id: task.id,
-        name: task.name.value,
-        done: task.done,
-      },
-    });
-  }
+//   async save(task: TaskEntity): Promise<void> {
+//     await this.prisma.task.create({
+//       data: {
+//         id: task.id,
+//         name: task.name.value,
+//         done: task.done,
+//       },
+//     });
+//   }
 
-  async updateOne(task: TaskEntity): Promise<void> {
-    await this.prisma.task.update({
-      where: {
-        id: task.id,
-      },
-      data: {
-        id: task.id,
-        name: task.name.value,
-        done: task.done,
-      },
-    });
-  }
+//   async updateOne(task: TaskEntity): Promise<void> {
+//     await this.prisma.task.update({
+//       where: {
+//         id: task.id,
+//       },
+//       data: {
+//         id: task.id,
+//         name: task.name.value,
+//         done: task.done,
+//       },
+//     });
+//   }
 
-  async deleteOne(id: number): Promise<void> {
-    await this.prisma.task.delete({
-      where: { id: id },
-    });
-  }
+//   async deleteOne(id: number): Promise<void> {
+//     await this.prisma.task.delete({
+//       where: { id: id },
+//     });
+//   }
 
-  async findOneById(id: number): Promise<TaskEntity | null> {
-    const task = await this.prisma.task.findUnique({
-      where: { id: id },
-    });
+//   async findOneById(id: number): Promise<TaskEntity | null> {
+//     const task = await this.prisma.task.findUnique({
+//       where: { id: id },
+//     });
 
-    if (!task) {
-      return null;
-    }
+//     if (!task) {
+//       return null;
+//     }
 
-    return new TaskEntity(task.id, new TaskName(task.name), task.done);
-  }
+//     return new TaskEntity(task.id, new TaskName(task.name), task.done);
+//   }
 
-  async findOneByName(taskName: TaskName): Promise<TaskEntity | null> {
-    const task = await this.prisma.task.findUnique({
-      where: { name: taskName.value },
-    });
+//   async findOneByName(taskName: TaskName): Promise<TaskEntity | null> {
+//     const task = await this.prisma.task.findUnique({
+//       where: { name: taskName.value },
+//     });
 
-    if (!task) {
-      return null;
-    }
-    return new TaskEntity(task.id, new TaskName(task.name), task.done);
-  }
+//     if (!task) {
+//       return null;
+//     }
+//     return new TaskEntity(task.id, new TaskName(task.name), task.done);
+//   }
 
-  async getNextId(): Promise<number> {
-    const tasks = await this.prisma.task.findMany();
+//   async getNextId(): Promise<number> {
+//     const tasks = await this.prisma.task.findMany();
 
-    return tasks.length + 1;
-  }
-}
+//     return tasks.length + 1;
+//   }
+// }

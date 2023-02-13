@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TaskDomainModule } from 'src/core/task/TaskDomain.module';
-import { TaskResolver } from './resolvers/Task.resolver';
+import { BacklogItemDomainModule } from 'src/core/backlogItem/BacklogItemDomain.module';
+import { BacklogItemResolver } from './resolvers/BacklogItem.resolver';
+// import { TaskResolver } from './resolvers/Task.resolver';
 
 @Module({
-  imports: [TaskDomainModule],
-  providers: [TaskResolver],
+  imports: [BacklogItemDomainModule],
+  providers: [BacklogItemResolver],
 })
 export class GraphQLAdapterModule {}

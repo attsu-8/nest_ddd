@@ -3,11 +3,20 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class Task {
   @Field(() => ID)
-  id: number;
+  id: string;
 
   @Field()
-  name: string;
+  taskName: string;
 
   @Field()
-  done: boolean;
+  description?: string;
+
+  @Field()
+  deadline: string;
+
+  @Field()
+  status: number;
+
+  @Field()
+  userId: number;
 }

@@ -1,13 +1,18 @@
 import { Module, Provider } from '@nestjs/common';
-import { TaskRepositoryPort } from 'src/core/task/port/secondary/repository/TaskRepositoryPort';
+import { BacklogItemRepositoryPort } from 'src/core/backlogItem/port/secondary/BacklogItemRepositoryPort';
+import { BacklogItemInMemoryRepositoryAdapter } from './BacklogItemInMemoryRepositoryAdapter';
 
-import { TaskInMemoryRepositoryAdapter } from './TaskInMemoryRepositoryAdapter';
+// import { TaskInMemoryRepositoryAdapter } from './TaskInMemoryRepositoryAdapter';
 
-const repositoryProviders: Provider<TaskInMemoryRepositoryAdapter>[] = [
+const repositoryProviders: Provider<BacklogItemInMemoryRepositoryAdapter>[] = [
   // Repository
+  // {
+  //   provide: TaskRepositoryPort,
+  //   useClass: TaskInMemoryRepositoryAdapter,
+  // },
   {
-    provide: TaskRepositoryPort,
-    useClass: TaskInMemoryRepositoryAdapter,
+    provide: BacklogItemRepositoryPort,
+    useClass: BacklogItemInMemoryRepositoryAdapter,
   },
 ];
 

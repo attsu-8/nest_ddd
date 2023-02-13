@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { Exception } from 'src/shared/exception';
 import { InMemoryRepositoryModule } from './inMemory/InMemoryRepository.module';
-import { PrismaRepositoryAdapterModule } from './prisma/PrismaRepositoryAdapter.module';
+// import { PrismaRepositoryAdapterModule } from './prisma/PrismaRepositoryAdapter.module';
 
 type RepositoryType = typeof process.env.REPOSITORY_TYPE;
 
@@ -14,9 +14,9 @@ export class RepositoryAdapterModule {
       case 'in-memory':
         repositoryModule = InMemoryRepositoryModule;
         break;
-      case 'mysql-prisma':
-        repositoryModule = PrismaRepositoryAdapterModule;
-        break;
+      // case 'mysql-prisma':
+      //   repositoryModule = PrismaRepositoryAdapterModule;
+      //   break;
       default:
         throw new Exception('Please provide a proper "REPOSITORY_TYPE"');
     }
