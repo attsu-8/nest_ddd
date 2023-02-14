@@ -1,34 +1,42 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { DateTime } from 'luxon';
 import { CreateBacklogItemUseCasePort } from 'src/core/backlogItem/port/primary/CreateBacklogItemUseCasePort';
+import { GetBacklogItemsUseCasePort } from 'src/core/backlogItem/port/primary/GetBacklogItemsUseCasePort';
 import { RESULT_TYPE } from 'src/infrastructure/adapter/secondary/repository/Result';
 import { BacklogItem } from '../models/BacklogItem.model';
+import { Task, TaskInput } from '../models/Task.model';
 
 @Resolver()
 export class BacklogItemResolver {
-  constructor(private createBacklogItemUseCase: CreateBacklogItemUseCasePort) {}
+  constructor(
+    private getBacklogItemsUseCase: GetBacklogItemsUseCasePort,
+    private createBacklogItemUseCase: CreateBacklogItemUseCasePort,
+  ) {}
 
   @Query(() => [BacklogItem])
-  async getAllTasks(): Promise<BacklogItem[]> {
+  async getAllBacklogItems(): Promise<BacklogItem[]> {
+    const backlogItems = await this.getBacklogItemsUseCase.execute();
     // const tasks = await this.getAllTasksUseCase.handle();
-    const formatedTasks: BacklogItem[] = [
-      {
-        id: '1',
-        story: 'story',
-        storyPoint: 1,
-        backlogItemPriority: 1,
-        description: 'description',
+    if (backlogItems.resultType === RESULT_TYPE.FAILED) {
+      return [];
+    }
+    const formatted = backlogItems.value.map((backlogItem) => {
+      return {
+        id: backlogItem.id,
+        story: backlogItem.story,
+        storyPoint: backlogItem.storyPoint.value,
+        backlogItemPriority: backlogItem.backlogItemPriority.value,
+        description: backlogItem.description,
         tasks: [],
-      },
-    ];
-    // const formatedTasks: BacklogItem[] = tasks.map((task) => {
-    //   return {
-    //     id: task.id,
-    //     name: task.name.value,
-    //     done: task.done,
-    //   };
-    // });
+        // tasks: backlogItem.tasks.map((task) => {
+        //   return {
+        //     id,
+        //   };
+        // }),
+      };
+    });
 
-    return formatedTasks;
+    return formatted;
   }
 
   @Mutation(() => Number)
@@ -41,13 +49,23 @@ export class BacklogItemResolver {
     storyPoint: number,
     @Args({ name: 'backlogItemPriority', type: () => Number })
     backlogItemPriority: number,
+    @Args({ name: 'tasks', type: () => [TaskInput] })
+    tasks: Task[],
   ): Promise<number> {
     const result = await this.createBacklogItemUseCase.execute({
       story: story,
       storyPoint: storyPoint,
       backlogItemPriority: backlogItemPriority,
       description: description,
-      tasks: [],
+      tasks: tasks.map((task) => {
+        return {
+          name: task.name,
+          description: task.description,
+          deadline: DateTime.fromJSDate(task.deadline),
+          status: task.status,
+          userId: task.userId,
+        };
+      }),
     });
 
     if (result.resultType === RESULT_TYPE.FAILED) {

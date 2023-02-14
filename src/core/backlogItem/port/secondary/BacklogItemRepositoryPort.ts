@@ -2,7 +2,9 @@ import { ResultType } from 'src/infrastructure/adapter/secondary/repository/Resu
 import { BacklogItemEntity } from '../../domain/BacklogItemEntiry';
 
 export abstract class BacklogItemRepositoryPort {
+  abstract findAll(): Promise<ResultType<BacklogItemEntity[], Error>>;
+
   abstract store(
     backlogItemEntity: BacklogItemEntity,
-  ): Promise<ResultType<number, Error>>;
+  ): Promise<ResultType<string, Error>>;
 }

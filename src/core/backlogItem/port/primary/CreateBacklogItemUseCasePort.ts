@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { ResultType } from 'src/infrastructure/adapter/secondary/repository/Result';
 
 interface TaskCommand {
-  taskName: string;
+  name: string;
   description?: string;
   deadline: DateTime;
   status: number;
@@ -20,5 +20,5 @@ export interface CreateBacklogItemCommand {
 export abstract class CreateBacklogItemUseCasePort {
   abstract execute(
     createBacklogItemCommand: CreateBacklogItemCommand,
-  ): Promise<ResultType<number, Error>>;
+  ): Promise<ResultType<string, Error>>;
 }

@@ -11,7 +11,7 @@ import { TaskEntity } from './task/TaskEntity';
 
 interface TaskFactoryParams {
   id: string;
-  taskName: string;
+  name: string;
   description?: string;
   deadline: DateTime;
   status: number;

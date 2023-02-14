@@ -11,19 +11,32 @@ type BacklogItem {
   tasks: [Task!]!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Mutation {
-  createOne(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!): Float!
+  createOne(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
 }
 
 type Query {
-  getAllTasks: [BacklogItem!]!
+  getAllBacklogItems: [BacklogItem!]!
 }
 
 type Task {
-  deadline: String!
+  deadline: DateTime!
   description: String
   id: ID!
+  name: String!
   status: Float!
-  taskName: String!
+  userId: Float!
+}
+
+input TaskInput {
+  deadline: DateTime!
+  description: String
+  name: String!
+  status: Float!
   userId: Float!
 }

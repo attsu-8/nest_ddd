@@ -7,7 +7,7 @@ describe('# TaskEntity', () => {
   test('正常に作成できる', () => {
     const task = TaskEntity.create({
       id: uuidv4(),
-      taskName: 'task name',
+      name: 'task name',
       description: 'task description',
       deadline: DateTime.local(),
       status: TaskStatus.NOT_STATED,
@@ -15,7 +15,7 @@ describe('# TaskEntity', () => {
     }).unwrap();
 
     expect(task.id).toBeTruthy();
-    expect(task.taskName).toBe('task name');
+    expect(task.name).toBe('task name');
     expect(task.description).toBe('task description');
     expect(task.deadline).toBeTruthy();
     expect(task.status).toBe(TaskStatus.NOT_STATED);

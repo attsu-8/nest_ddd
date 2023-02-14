@@ -19,15 +19,19 @@ export class BacklogItemInMemoryRepositoryAdapter
     }).unwrap(),
   ];
 
+  async findAll(): Promise<ResultType<BacklogItemEntity[], Error>> {
+    return new ResultSucceeded([]);
+  }
+
   async store(
     backlogItemEntity: BacklogItemEntity,
-  ): Promise<ResultType<number, Error>> {
+  ): Promise<ResultType<string, Error>> {
     this.backlogItems.push(backlogItemEntity);
 
     this.backlogItems.map((item) => {
       console.log(item.id);
     });
 
-    return new ResultSucceeded(1);
+    return new ResultSucceeded('1');
   }
 }

@@ -11,7 +11,21 @@ datasource db {
 }
 
 model Task {
-  id Int @default(autoincrement()) @id
-  name String @unique
-  done Boolean
+  id String @id
+  name String
+  description String?
+  deadline DateTime
+  status Int
+  backlogItem BacklogItem @relation(fields: [backlogItemId], references: [id])
+  backlogItemId String
+  userId Int 
+}
+
+model BacklogItem {
+  id String @id
+  story String?
+  storyPoint Int
+  backlogItemPriority Int
+  description String?
+  tasks Task[]
 }

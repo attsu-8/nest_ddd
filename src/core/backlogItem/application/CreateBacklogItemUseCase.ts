@@ -20,7 +20,7 @@ export class CreateBacklogItemUseCase implements CreateBacklogItemUseCasePort {
   ) {}
   async execute(
     createBacklogItemCommand: CreateBacklogItemCommand,
-  ): Promise<ResultType<number, Error>> {
+  ): Promise<ResultType<string, Error>> {
     const backlogItemId = uuidv4();
 
     const tasks = createBacklogItemCommand.tasks.map((task) => {

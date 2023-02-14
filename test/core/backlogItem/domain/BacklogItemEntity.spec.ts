@@ -13,7 +13,7 @@ describe('# BacklogItemEntity', () => {
       tasks: [
         {
           id: uuidv4(),
-          taskName: 'task name',
+          name: 'task name',
           description: 'task description',
           deadline: DateTime.local(),
           status: 1,

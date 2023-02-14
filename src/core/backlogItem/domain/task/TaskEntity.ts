@@ -7,7 +7,7 @@ import { TaskStatus } from './taskStatus/enum/TaskStatus';
 
 interface TaskEntityFactoryParams {
   id: string;
-  taskName: string;
+  name: string;
   description?: string;
   deadline: DateTime;
   status: number;
@@ -16,7 +16,7 @@ interface TaskEntityFactoryParams {
 
 interface TaskEntityCreationParams {
   id: string;
-  taskName: string;
+  name: string;
   description?: string;
   deadline: DateTime;
   status: TaskStatus;
@@ -25,7 +25,7 @@ interface TaskEntityCreationParams {
 
 export class TaskEntity {
   private _id: string;
-  private _taskName: string;
+  private _name: string;
   private _description?: string;
   private _deadline: DateTime;
   private _status: TaskStatus;
@@ -33,7 +33,7 @@ export class TaskEntity {
 
   private constructor(params: TaskEntityCreationParams) {
     this._id = params.id;
-    this._taskName = params.taskName;
+    this._name = params.name;
     this._description = params.description;
     this._deadline = params.deadline;
     this._status = params.status;
@@ -44,8 +44,8 @@ export class TaskEntity {
     return this._id;
   }
 
-  get taskName(): string {
-    return this._taskName;
+  get name(): string {
+    return this._name;
   }
 
   get description(): string {

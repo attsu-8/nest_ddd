@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Task {
@@ -6,13 +6,31 @@ export class Task {
   id: string;
 
   @Field()
-  taskName: string;
+  name: string;
 
   @Field()
   description?: string;
 
   @Field()
-  deadline: string;
+  deadline: Date;
+
+  @Field()
+  status: number;
+
+  @Field()
+  userId: number;
+}
+
+@InputType()
+export class TaskInput {
+  @Field()
+  name: string;
+
+  @Field()
+  description?: string;
+
+  @Field()
+  deadline: Date;
 
   @Field()
   status: number;
