@@ -4,7 +4,7 @@ import {
   ResultSucceeded,
   ResultType,
   RESULT_TYPE,
-} from 'src/infrastructure/adapter/secondary/repository/Result';
+} from 'src/shared/Result';
 import { BacklogItemEntity } from '../domain/BacklogItemEntiry';
 import {
   CreateBacklogItemCommand,

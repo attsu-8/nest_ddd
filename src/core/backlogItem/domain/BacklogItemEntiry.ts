@@ -4,7 +4,7 @@ import {
   ResultSucceeded,
   ResultType,
   RESULT_TYPE,
-} from 'src/infrastructure/adapter/secondary/repository/Result';
+} from 'src/shared/Result';
 import { BacklogItemPriorityValueObject } from './backlogItemPriority/valueObject/BacklogItemPriority';
 import { StoryPonitValueObject } from './storyPoint/valueObject/StoryPointValueObject';
 import { TaskEntity } from './task/TaskEntity';

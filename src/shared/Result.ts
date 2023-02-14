@@ -18,9 +18,9 @@ export class ResultSucceeded<T> {
     return this.value;
   }
 
-  or<U>(_: U): T {
-    return this.value;
-  }
+  // or<U>(_: U): T {
+  //   return this.value;
+  // }
 }
 
 export class ResultFailed<E extends Error> {

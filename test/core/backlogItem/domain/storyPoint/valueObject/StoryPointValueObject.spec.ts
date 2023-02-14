@@ -1,5 +1,5 @@
 import { StoryPonitValueObject } from 'src/core/backlogItem/domain/storyPoint/valueObject/StoryPointValueObject';
-import { RESULT_TYPE } from 'src/infrastructure/adapter/secondary/repository/Result';
+import { RESULT_TYPE } from 'src/shared/Result';
 
 describe('# StoryPointValueObject', () => {
   describe('正常ケース', () => {

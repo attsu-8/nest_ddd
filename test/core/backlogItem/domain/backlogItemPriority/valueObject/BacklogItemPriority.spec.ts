@@ -1,5 +1,5 @@
 import { BacklogItemPriorityValueObject } from 'src/core/backlogItem/domain/backlogItemPriority/valueObject/BacklogItemPriority';
-import { RESULT_TYPE } from 'src/infrastructure/adapter/secondary/repository/Result';
+import { RESULT_TYPE } from 'src/shared/Result';
 
 describe('# BacklogItemPriority', () => {
   const testTable = [

@@ -1,4 +1,4 @@
-import { ResultType } from 'src/infrastructure/adapter/secondary/repository/Result';
+import { ResultType } from 'src/shared/Result';
 import { BacklogItemEntity } from '../../domain/BacklogItemEntiry';
 
 export abstract class GetBacklogItemsUseCasePort {

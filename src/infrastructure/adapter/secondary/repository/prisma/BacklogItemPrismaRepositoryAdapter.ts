@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { BacklogItemEntity } from 'src/core/backlogItem/domain/BacklogItemEntiry';
 import { BacklogItemRepositoryPort } from 'src/core/backlogItem/port/secondary/BacklogItemRepositoryPort';
-import { ResultSucceeded, ResultType } from '../Result';
+import { ResultSucceeded, ResultType } from '../../../../../shared/Result';
 import { PrismaService } from './Prisma.service';
 
 @Injectable()

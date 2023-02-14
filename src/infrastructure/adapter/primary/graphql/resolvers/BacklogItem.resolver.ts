@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { DateTime } from 'luxon';
 import { CreateBacklogItemUseCasePort } from 'src/core/backlogItem/port/primary/CreateBacklogItemUseCasePort';
 import { GetBacklogItemsUseCasePort } from 'src/core/backlogItem/port/primary/GetBacklogItemsUseCasePort';
-import { RESULT_TYPE } from 'src/infrastructure/adapter/secondary/repository/Result';
+import { RESULT_TYPE } from 'src/shared/Result';
 import { BacklogItem } from '../models/BacklogItem.model';
 import { Task, TaskInput } from '../models/Task.model';
 

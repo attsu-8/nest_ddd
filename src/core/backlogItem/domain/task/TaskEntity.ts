@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import {
   ResultSucceeded,
   ResultType,
-} from 'src/infrastructure/adapter/secondary/repository/Result';
+} from 'src/shared/Result';
 import { TaskStatus } from './taskStatus/enum/TaskStatus';
 
 interface TaskEntityFactoryParams {

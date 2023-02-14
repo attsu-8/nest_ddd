@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { ResultType } from 'src/infrastructure/adapter/secondary/repository/Result';
+import { ResultType } from 'src/shared/Result';
 
 interface TaskCommand {
   name: string;

@@ -2,7 +2,7 @@ import {
   ResultFailed,
   ResultSucceeded,
   ResultType,
-} from 'src/infrastructure/adapter/secondary/repository/Result';
+} from 'src/shared/Result';
 
 export class BacklogItemPriorityValueObject {
   private _value: number;
