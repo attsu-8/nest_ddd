@@ -18,7 +18,7 @@ export class Task {
   status: number;
 
   @Field()
-  userId: number;
+  userId: string;
 }
 
 @InputType()
@@ -36,5 +36,5 @@ export class TaskInput {
   status: number;
 
   @Field()
-  userId: number;
+  userId: string;
 }

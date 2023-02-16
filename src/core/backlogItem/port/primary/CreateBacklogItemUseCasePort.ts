@@ -6,7 +6,7 @@ interface TaskCommand {
   description?: string;
   deadline: DateTime;
   status: number;
-  userId: number;
+  userId: string;
 }
 
 export interface CreateBacklogItemCommand {

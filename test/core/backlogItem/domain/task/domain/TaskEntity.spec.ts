@@ -11,7 +11,7 @@ describe('# TaskEntity', () => {
       description: 'task description',
       deadline: DateTime.local(),
       status: TaskStatus.NOT_STATED,
-      userId: 1,
+      userId: uuidv4(),
     }).unwrap();
 
     expect(task.id).toBeTruthy();
@@ -19,6 +19,6 @@ describe('# TaskEntity', () => {
     expect(task.description).toBe('task description');
     expect(task.deadline).toBeTruthy();
     expect(task.status).toBe(TaskStatus.NOT_STATED);
-    expect(task.userId).toBe(1);
+    expect(task.userId).toBeTruthy();
   });
 });

@@ -17,7 +17,7 @@ describe('# BacklogItemEntity', () => {
           description: 'task description',
           deadline: DateTime.local(),
           status: 1,
-          userId: 1,
+          userId: uuidv4(),
         },
       ],
     }).unwrap();

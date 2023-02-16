@@ -17,11 +17,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
-  createOne(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
+  createOneBacklogItem(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
+  createOneUser(name: String!): Float!
 }
 
 type Query {
   getAllBacklogItems: [BacklogItem!]!
+  getAllUsers: [User!]!
 }
 
 type Task {
@@ -30,7 +32,7 @@ type Task {
   id: ID!
   name: String!
   status: Float!
-  userId: Float!
+  userId: String!
 }
 
 input TaskInput {
@@ -38,5 +40,10 @@ input TaskInput {
   description: String
   name: String!
   status: Float!
-  userId: Float!
+  userId: String!
+}
+
+type User {
+  id: ID!
+  name: String!
 }

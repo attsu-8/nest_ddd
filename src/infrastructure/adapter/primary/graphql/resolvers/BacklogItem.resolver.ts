@@ -27,12 +27,17 @@ export class BacklogItemResolver {
         storyPoint: backlogItem.storyPoint.value,
         backlogItemPriority: backlogItem.backlogItemPriority.value,
         description: backlogItem.description,
-        tasks: [],
-        // tasks: backlogItem.tasks.map((task) => {
-        //   return {
-        //     id,
-        //   };
-        // }),
+        // tasks: [],
+        tasks: backlogItem.tasks.map((task) => {
+          return {
+            id: task.id,
+            name: task.name,
+            deadline: task.deadline.toJSDate(),
+            description: task.description,
+            userId: task.userId,
+            status: 1,
+          };
+        }),
       };
     });
 
@@ -40,7 +45,7 @@ export class BacklogItemResolver {
   }
 
   @Mutation(() => Number)
-  async createOne(
+  async createOneBacklogItem(
     @Args({ name: 'story', type: () => String })
     story: string,
     @Args({ name: 'description', type: () => String })

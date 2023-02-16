@@ -15,7 +15,7 @@ interface TaskFactoryParams {
   description?: string;
   deadline: DateTime;
   status: number;
-  userId: number;
+  userId: string;
 }
 
 interface BacklogItemEntiryFactoryParams {

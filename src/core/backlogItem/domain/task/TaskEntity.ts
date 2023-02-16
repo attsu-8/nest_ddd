@@ -1,8 +1,5 @@
 import { DateTime } from 'luxon';
-import {
-  ResultSucceeded,
-  ResultType,
-} from 'src/shared/Result';
+import { ResultSucceeded, ResultType } from 'src/shared/Result';
 import { TaskStatus } from './taskStatus/enum/TaskStatus';
 
 interface TaskEntityFactoryParams {
@@ -11,7 +8,7 @@ interface TaskEntityFactoryParams {
   description?: string;
   deadline: DateTime;
   status: number;
-  userId: number;
+  userId: string;
 }
 
 interface TaskEntityCreationParams {
@@ -20,7 +17,7 @@ interface TaskEntityCreationParams {
   description?: string;
   deadline: DateTime;
   status: TaskStatus;
-  userId: number;
+  userId: string;
 }
 
 export class TaskEntity {
@@ -29,7 +26,7 @@ export class TaskEntity {
   private _description?: string;
   private _deadline: DateTime;
   private _status: TaskStatus;
-  private _userId: number;
+  private _userId: string;
 
   private constructor(params: TaskEntityCreationParams) {
     this._id = params.id;
@@ -60,7 +57,7 @@ export class TaskEntity {
     return this._status;
   }
 
-  get userId(): number {
+  get userId(): string {
     return this._userId;
   }
 

@@ -18,7 +18,8 @@ model Task {
   status Int
   backlogItem BacklogItem @relation(fields: [backlogItemId], references: [id])
   backlogItemId String
-  userId Int 
+  user User @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model BacklogItem {
@@ -28,4 +29,10 @@ model BacklogItem {
   backlogItemPriority Int
   description String?
   tasks Task[]
+}
+
+model User {
+  id String @id
+  name String
+  task Task[]
 }
