@@ -17,7 +17,10 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "schema:drop": "echo $1",
+    "migration": "npx prisma migrate dev --name $1",
+    "prisma:studio": "npx prisma studio"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.1.7",
@@ -26,11 +29,14 @@
     "@nestjs/graphql": "^10.1.7",
     "@nestjs/platform-express": "^9.0.0",
     "@prisma/client": "^4.8.1",
+    "@types/luxon": "^3.2.0",
     "apollo-server-express": "^3.11.1",
     "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
+    "luxon": "^3.2.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -40,6 +46,7 @@
     "@types/jest": "29.2.4",
     "@types/node": "18.11.18",
     "@types/supertest": "^2.0.11",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
@@ -62,7 +69,6 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -72,9 +78,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^shared/exception$": "<rootDir>/shared/exception.ts"
-    }
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>"
+    ]
   },
   "prisma": {
     "schema": "src/infrastructure/adapter/secondary/repository/prisma/schema.prisma"

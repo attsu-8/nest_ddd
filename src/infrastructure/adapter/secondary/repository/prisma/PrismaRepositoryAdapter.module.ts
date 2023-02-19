@@ -1,12 +1,20 @@
 import { Module, Provider } from '@nestjs/common';
-import { TaskRepositoryPort } from 'src/core/task/port/secondary/repository/TaskRepositoryPort';
+import { BacklogItemRepositoryPort } from 'src/core/backlogItem/port/secondary/BacklogItemRepositoryPort';
+import { UserRepositoryPort } from 'src/core/user/port/secondary/UserRepositoryPort';
+import { BacklogItemPrismaRepositoryAdapter } from './BacklogItemPrismaRepositoryAdapter';
 import { PrismaService } from './Prisma.service';
-import { TaskPrismaRepositoryAdapter } from './TaskPrismaRepositoryAdapter';
+import { UserPrismaRepositoryAdapter } from './UserPrismaRepositoryAdapter';
 
-const repositoryProviders: Provider<TaskPrismaRepositoryAdapter>[] = [
+const repositoryProviders: Provider<
+  BacklogItemPrismaRepositoryAdapter | UserPrismaRepositoryAdapter
+>[] = [
   {
-    provide: TaskRepositoryPort,
-    useClass: TaskPrismaRepositoryAdapter,
+    provide: BacklogItemRepositoryPort,
+    useClass: BacklogItemPrismaRepositoryAdapter,
+  },
+  {
+    provide: UserRepositoryPort,
+    useClass: UserPrismaRepositoryAdapter,
   },
 ];
 

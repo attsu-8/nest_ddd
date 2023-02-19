@@ -2,18 +2,48 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type BacklogItem {
+  backlogItemPriority: Float!
+  description: String!
+  id: ID!
+  story: String!
+  storyPoint: Float!
+  tasks: [Task!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Mutation {
-  createOne(name: String!): Boolean!
-  deleteOne(id: Float!): Boolean!
-  updateOne(done: Boolean!, id: Float!, name: String!): Boolean!
+  createOneBacklogItem(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
+  createOneUser(name: String!): Float!
 }
 
 type Query {
-  getAllTasks: [Task!]!
+  getAllBacklogItems: [BacklogItem!]!
+  getAllUsers: [User!]!
 }
 
 type Task {
-  done: Boolean!
+  deadline: DateTime!
+  description: String
+  id: ID!
+  name: String!
+  status: Float!
+  userId: String!
+}
+
+input TaskInput {
+  deadline: DateTime!
+  description: String
+  name: String!
+  status: Float!
+  userId: String!
+}
+
+type User {
   id: ID!
   name: String!
 }
