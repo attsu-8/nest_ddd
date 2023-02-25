@@ -59,10 +59,10 @@ export class ProductBacklogResolver {
   async updateProductBacklog(
     @Args({ name: 'id', type: () => String })
     id: string,
-    @Args({ name: 'name', type: () => String })
-    name: string,
-    @Args({ name: 'productOwnerId', type: () => String })
-    productOwnerId: string,
+    @Args({ name: 'name', type: () => String, nullable: true })
+    name?: string,
+    @Args({ name: 'productOwnerId', type: () => String, nullable: true })
+    productOwnerId?: string,
     @Args({ name: 'description', type: () => String, nullable: true })
     description?: string,
   ): Promise<string> {

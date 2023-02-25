@@ -22,7 +22,7 @@ type Mutation {
   createUser(name: String!): String!
   deleteProductBacklog(id: String!): String!
   deleteUser(id: String!): String!
-  updateProductBacklog(description: String, id: String!, name: String!, productOwnerId: String!): String!
+  updateProductBacklog(description: String, id: String!, name: String, productOwnerId: String): String!
   updateUser(id: String!, name: String!): String!
 }
 
