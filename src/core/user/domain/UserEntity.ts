@@ -10,6 +10,7 @@ export class UserEntity {
     readonly id: string,
     readonly name: UserNameValueObject,
   ) {}
+
   static create(
     params: UserEntityFactoryParams,
   ): ResultType<UserEntity, Error> {
