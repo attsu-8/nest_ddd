@@ -7,9 +7,10 @@ interface UserEntityFactoryParams {
 }
 export class UserEntity {
   private constructor(
-    readonly id: string,
-    readonly name: UserNameValueObject,
+    public readonly id: string,
+    public readonly name: UserNameValueObject,
   ) {}
+
   static create(
     params: UserEntityFactoryParams,
   ): ResultType<UserEntity, Error> {

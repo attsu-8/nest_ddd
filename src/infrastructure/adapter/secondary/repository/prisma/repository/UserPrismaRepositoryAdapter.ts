@@ -49,4 +49,12 @@ export class UserPrismaRepositoryAdapter implements UserRepositoryPort {
     });
     return new ResultSucceeded(updateResult.id);
   }
+
+  async delete(id: string): Promise<ResultType<string, Error>> {
+    const deleteResult = await this.prisma.user.delete({
+      where: { id: id },
+    });
+
+    return new ResultSucceeded(deleteResult.id);
+  }
 }

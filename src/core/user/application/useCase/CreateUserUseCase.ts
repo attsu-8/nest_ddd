@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { ResultType, RESULT_TYPE } from 'src/shared/Result';
-import { UserEntity } from '../domain/UserEntity';
+import { UserEntity } from '../../domain/UserEntity';
 import {
-  CreateUserCommand,
-  CreateUserUseCasePort,
-} from '../port/primary/CreateUserUseCasePort';
-import { UserRepositoryPort } from '../port/secondary/UserRepositoryPort';
+  CreateUserRequest,
+  CreateUserPort,
+} from '../../port/primary/CreateUserPort';
+import { UserRepositoryPort } from '../../port/secondary/UserRepositoryPort';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class CreateUserUseCase implements CreateUserUseCasePort {
-  constructor(private userRepositoryPort: UserRepositoryPort) {}
+export class CreateUserUseCase implements CreateUserPort {
+  constructor(private readonly userRepositoryPort: UserRepositoryPort) {}
 
-  async execute(
-    createUserCommand: CreateUserCommand,
+  async createUser(
+    createUserRequest: CreateUserRequest,
   ): Promise<ResultType<string, Error>> {
     const userEntity = UserEntity.create({
       id: uuidv4(),
-      name: createUserCommand.name,
+      name: createUserRequest.name,
     });
     if (userEntity.resultType === RESULT_TYPE.FAILED) {
       return userEntity;
