@@ -1,4 +1,4 @@
-import { ProductBacklogEntity } from 'src/core/product/domain/ProductEntiry';
+import { ProductBacklogEntity } from 'src/core/productBacklog/domain/ProductBacklogEntiry';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('# ProductBacklogEntiry.spec', () => {

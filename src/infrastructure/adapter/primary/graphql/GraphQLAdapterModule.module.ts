@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BacklogItemDomainModule } from 'src/core/backlogItem/BacklogItemDomain.module';
-import { ProductBacklogModule } from 'src/core/product/ProductBacklog.module';
+import { ProductBacklogModule } from 'src/core/productBacklog/ProductBacklog.module';
 import { UserDomainModule } from 'src/core/user/UserDomain.module';
 import { BacklogItemResolver } from './resolvers/BacklogItem.resolver';
 import { ProductBacklogResolver } from './resolvers/ProductBacklog.resolver';

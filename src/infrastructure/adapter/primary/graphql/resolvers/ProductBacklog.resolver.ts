@@ -1,14 +1,18 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateProductBacklogPort } from 'src/core/product/port/primary/CreateProductBacklogPort';
-import { GetProductBacklogsPort } from 'src/core/product/port/primary/GetProductBacklogsUseCasePort';
+import { CreateProductBacklogPort } from 'src/core/productBacklog/port/primary/CreateProductBacklogPort';
+import { DeleteProductBacklogPort } from 'src/core/productBacklog/port/primary/DeleteProductBacklogPort';
+import { GetProductBacklogsPort } from 'src/core/productBacklog/port/primary/GetProductBacklogsPort';
+import { UpdateProductBacklogPort } from 'src/core/productBacklog/port/primary/UpdateProductBacklogPort';
 import { RESULT_TYPE } from 'src/shared/Result';
 import { ProductBacklog } from '../models/ProductBacklog.model';
 
 @Resolver()
 export class ProductBacklogResolver {
   constructor(
-    private getProductBacklogsPort: GetProductBacklogsPort,
-    private createProductBacklogPort: CreateProductBacklogPort,
+    private readonly getProductBacklogsPort: GetProductBacklogsPort,
+    private readonly createProductBacklogPort: CreateProductBacklogPort,
+    private readonly updateProductBacklogPort: UpdateProductBacklogPort,
+    private readonly deleteProductBacklogPort: DeleteProductBacklogPort,
   ) {}
 
   @Query(() => [ProductBacklog])
@@ -49,5 +53,46 @@ export class ProductBacklogResolver {
     }
 
     return createResult.value;
+  }
+
+  @Mutation(() => String)
+  async updateProductBacklog(
+    @Args({ name: 'id', type: () => String })
+    id: string,
+    @Args({ name: 'name', type: () => String })
+    name: string,
+    @Args({ name: 'productOwnerId', type: () => String })
+    productOwnerId: string,
+    @Args({ name: 'description', type: () => String, nullable: true })
+    description?: string,
+  ): Promise<string> {
+    const updateResult =
+      await this.updateProductBacklogPort.updateProductBacklog({
+        id: id,
+        name: name,
+        productOwnerId: productOwnerId,
+        description: description,
+      });
+    if (updateResult.resultType === RESULT_TYPE.FAILED) {
+      return 'todo';
+    }
+
+    return updateResult.value;
+  }
+
+  @Mutation(() => String)
+  async deleteProductBacklog(
+    @Args({ name: 'id', type: () => String })
+    id: string,
+  ): Promise<string> {
+    const deleteResult =
+      await this.deleteProductBacklogPort.deleteProductBacklog({
+        id: id,
+      });
+    if (deleteResult.resultType === RESULT_TYPE.FAILED) {
+      return 'todo';
+    }
+
+    return deleteResult.value;
   }
 }

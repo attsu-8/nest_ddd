@@ -10,7 +10,7 @@ import { GetUsersPort } from './port/primary/GetUsersPort';
 import { UpdateUserPort } from './port/primary/UpdateUserPort';
 
 const useCaseProviders: Provider<
-  CreateUserUseCase | GetUsersUseCase | UpdateUserUseCase | DeleteUserUseCase
+  CreateUserPort | GetUsersPort | UpdateUserPort | DeleteUserPort
 >[] = [
   {
     provide: CreateUserPort,

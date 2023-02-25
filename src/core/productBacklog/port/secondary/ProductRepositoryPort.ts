@@ -1,5 +1,5 @@
 import { ResultType } from 'src/shared/Result';
-import { ProductBacklogEntity } from '../../domain/ProductEntiry';
+import { ProductBacklogEntity } from '../../domain/ProductBacklogEntiry';
 
 export abstract class ProductBacklogRepositoryPort {
   abstract findAll(): Promise<ResultType<ProductBacklogEntity[], Error>>;
@@ -7,4 +7,6 @@ export abstract class ProductBacklogRepositoryPort {
   abstract store(
     productBacklogEntity: ProductBacklogEntity,
   ): Promise<ResultType<string, Error>>;
+
+  abstract delete(id: string): Promise<ResultType<string, Error>>;
 }

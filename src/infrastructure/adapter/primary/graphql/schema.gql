@@ -20,7 +20,9 @@ type Mutation {
   createOneBacklogItem(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
   createProductBacklog(description: String, name: String!, productOwnerId: String!): String!
   createUser(name: String!): String!
+  deleteProductBacklog(id: String!): String!
   deleteUser(id: String!): String!
+  updateProductBacklog(description: String, id: String!, name: String!, productOwnerId: String!): String!
   updateUser(id: String!, name: String!): String!
 }
 
