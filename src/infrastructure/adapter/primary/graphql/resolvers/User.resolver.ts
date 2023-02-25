@@ -1,45 +1,80 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateUserUseCasePort } from 'src/core/user/port/primary/CreateUserUseCasePort';
-import { GetUsersUseCasePort } from 'src/core/user/port/primary/GetUsersUseCasePort';
+import { CreateUserPort } from 'src/core/user/port/primary/CreateUserPort';
+import { DeleteUserPort } from 'src/core/user/port/primary/DeleteUserPort';
+import { GetUsersPort } from 'src/core/user/port/primary/GetUsersPort';
+import { UpdateUserPort } from 'src/core/user/port/primary/UpdateUserPort';
 import { RESULT_TYPE } from 'src/shared/Result';
 import { User } from '../models/User.model';
 
 @Resolver()
 export class UserResolver {
   constructor(
-    private getUsersUseCase: GetUsersUseCasePort,
-    private createUserUseCase: CreateUserUseCasePort,
+    private readonly getUsersPort: GetUsersPort,
+    private readonly createUserPort: CreateUserPort,
+    private readonly updateUserPort: UpdateUserPort,
+    private readonly deleteUserPort: DeleteUserPort,
   ) {}
 
   @Query(() => [User])
   async getAllUsers(): Promise<User[]> {
-    const users = await this.getUsersUseCase.execute();
-    if (users.resultType === RESULT_TYPE.FAILED) {
+    const getResult = await this.getUsersPort.getUsers();
+    if (getResult.resultType === RESULT_TYPE.FAILED) {
       return [];
     }
 
-    const formatted = users.value.map((user) => {
+    return getResult.value.map((user) => {
       return {
         id: user.id,
         name: user.name.value,
       };
     });
-
-    return formatted;
   }
 
-  @Mutation(() => Number)
-  async createOneUser(
+  @Mutation(() => String)
+  async createUser(
     @Args({ name: 'name', type: () => String })
     name: string,
-  ): Promise<number> {
-    const result = await this.createUserUseCase.execute({
+  ): Promise<string> {
+    const createResult = await this.createUserPort.createUser({
       name: name,
     });
-    if (result.resultType === RESULT_TYPE.FAILED) {
-      return 0;
+    if (createResult.resultType === RESULT_TYPE.FAILED) {
+      return 'todo';
     }
 
-    return 1;
+    return createResult.value;
+  }
+
+  @Mutation(() => String)
+  async updateUser(
+    @Args({ name: 'id', type: () => String })
+    id: string,
+    @Args({ name: 'name', type: () => String })
+    name: string,
+  ): Promise<string> {
+    const updateResult = await this.updateUserPort.updateUser({
+      id: id,
+      name: name,
+    });
+    if (updateResult.resultType === RESULT_TYPE.FAILED) {
+      return 'todo';
+    }
+
+    return updateResult.value;
+  }
+
+  @Mutation(() => String)
+  async deleteUser(
+    @Args({ name: 'id', type: () => String })
+    id: string,
+  ): Promise<string> {
+    const deleteResult = await this.deleteUserPort.deleteUser({
+      id: id,
+    });
+    if (deleteResult.resultType === RESULT_TYPE.FAILED) {
+      return 'todo';
+    }
+
+    return deleteResult.value;
   }
 }

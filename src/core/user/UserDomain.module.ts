@@ -1,27 +1,33 @@
 import { Module, Provider } from '@nestjs/common';
 import { RepositoryAdapterModule } from 'src/infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
-import { CreateUserUseCase } from './application/CreateUserUseCase';
-import { GetUsersUseCase } from './application/GetUsersUseCase';
-import { CreateUserUseCasePort } from './port/primary/CreateUserUseCasePort';
-import { GetUsersUseCasePort } from './port/primary/GetUsersUseCasePort';
+import { CreateUserUseCase } from './application/useCase/CreateUserUseCase';
+import { DeleteUserUseCase } from './application/useCase/DeleteUseCase';
+import { GetUsersUseCase } from './application/useCase/GetUsersUseCase';
+import { UpdateUserUseCase } from './application/useCase/UpdateUserUseCase';
+import { CreateUserPort } from './port/primary/CreateUserPort';
+import { DeleteUserPort } from './port/primary/DeleteUserPort';
+import { GetUsersPort } from './port/primary/GetUsersPort';
+import { UpdateUserPort } from './port/primary/UpdateUserPort';
 
-const useCaseProviders: Provider<CreateUserUseCase | GetUsersUseCase>[] = [
+const useCaseProviders: Provider<
+  CreateUserUseCase | GetUsersUseCase | UpdateUserUseCase | DeleteUserUseCase
+>[] = [
   {
-    provide: CreateUserUseCasePort,
+    provide: CreateUserPort,
     useClass: CreateUserUseCase,
   },
   {
-    provide: GetUsersUseCasePort,
+    provide: GetUsersPort,
     useClass: GetUsersUseCase,
   },
-  // {
-  //   provide: UpdateTaskUseCasePort,
-  //   useClass: UpdateTaskUseCase,
-  // },
-  // {
-  //   provide: DeleteTaskUseCasePort,
-  //   useClass: DeleteTaskUseCase,
-  // },
+  {
+    provide: UpdateUserPort,
+    useClass: UpdateUserUseCase,
+  },
+  {
+    provide: DeleteUserPort,
+    useClass: DeleteUserUseCase,
+  },
 ];
 
 @Module({
