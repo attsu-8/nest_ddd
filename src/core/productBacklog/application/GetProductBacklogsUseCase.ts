@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ResultType, RESULT_TYPE } from 'src/shared/Result';
-import { ProductBacklogEntity } from '../domain/ProductEntiry';
+import { ProductBacklogEntity } from '../domain/ProductBacklogEntiry';
 import { ProductBacklogRepositoryPort } from '../port/secondary/ProductRepositoryPort';
 
-import { GetProductBacklogsPort } from '../port/primary/GetProductBacklogsUseCasePort';
+import { GetProductBacklogsPort } from '../port/primary/GetProductBacklogsPort';
 
 @Injectable()
 export class GetProductBacklogsUseCase implements GetProductBacklogsPort {

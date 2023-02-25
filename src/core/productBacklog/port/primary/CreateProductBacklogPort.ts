@@ -2,8 +2,8 @@ import { ResultType } from 'src/shared/Result';
 
 export interface CreateProductBacklogRequest {
   name: string;
-  description?: string;
   productOwnerId: string;
+  description?: string;
 }
 
 export abstract class CreateProductBacklogPort {

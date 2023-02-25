@@ -1,5 +1,5 @@
 import { ResultType } from 'src/shared/Result';
-import { ProductBacklogEntity } from '../../domain/ProductEntiry';
+import { ProductBacklogEntity } from '../../domain/ProductBacklogEntiry';
 
 export abstract class GetProductBacklogsPort {
   abstract getProductBacklogs(): Promise<

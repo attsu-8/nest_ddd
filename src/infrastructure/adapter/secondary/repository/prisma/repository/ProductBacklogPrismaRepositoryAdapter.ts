@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ProductBacklogEntity } from 'src/core/product/domain/ProductEntiry';
-import { ProductBacklogRepositoryPort } from 'src/core/product/port/secondary/ProductRepositoryPort';
+import { ProductBacklogEntity } from 'src/core/productBacklog/domain/ProductBacklogEntiry';
+import { ProductBacklogRepositoryPort } from 'src/core/productBacklog/port/secondary/ProductRepositoryPort';
 import { ResultSucceeded, ResultType } from '../../../../../../shared/Result';
 import { PrismaService } from '../Prisma.service';
 
@@ -66,5 +66,13 @@ export class ProductBacklogPrismaRepositoryAdapter
     });
 
     return new ResultSucceeded(updateResult.id);
+  }
+
+  async delete(id: string): Promise<ResultType<string, Error>> {
+    const deleteResult = await this.prisma.productBacklog.delete({
+      where: { id: id },
+    });
+
+    return new ResultSucceeded(deleteResult.id);
   }
 }

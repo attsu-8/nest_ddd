@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ResultType, RESULT_TYPE } from 'src/shared/Result';
-import { ProductBacklogEntity } from '../domain/ProductEntiry';
+import { ProductBacklogEntity } from '../domain/ProductBacklogEntiry';
 import {
   CreateProductBacklogPort,
   CreateProductBacklogRequest,
