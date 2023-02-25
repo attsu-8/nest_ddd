@@ -2,8 +2,8 @@ import { ResultType } from 'src/shared/Result';
 
 export interface UpdateProductBacklogRequest {
   id: string;
-  name: string;
-  productOwnerId: string;
+  name?: string;
+  productOwnerId?: string;
   description?: string;
 }
 

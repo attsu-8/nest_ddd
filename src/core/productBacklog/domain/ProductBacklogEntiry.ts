@@ -15,6 +15,19 @@ export class ProductBacklogEntity {
     public readonly description?: string,
   ) {}
 
+  update(updateParams: {
+    name?: string;
+    productOwnerId?: string;
+    description?: string;
+  }): ResultType<ProductBacklogEntity, Error> {
+    return ProductBacklogEntity.create({
+      id: this.id,
+      name: updateParams.name ?? this.name,
+      productOwnerId: updateParams.productOwnerId ?? this.productOwnerId,
+      description: updateParams.description ?? this.description,
+    });
+  }
+
   static create(
     params: ProductBacklogEntiryFactoryParams,
   ): ResultType<ProductBacklogEntity, Error> {

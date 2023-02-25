@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ProductBacklogEntity } from 'src/core/productBacklog/domain/ProductBacklogEntiry';
 import { ProductBacklogRepositoryPort } from 'src/core/productBacklog/port/secondary/ProductRepositoryPort';
-import { ResultSucceeded, ResultType } from '../../../../../../shared/Result';
+import {
+  ResultFailed,
+  ResultSucceeded,
+  ResultType,
+} from '../../../../../../shared/Result';
 import { PrismaService } from '../Prisma.service';
 
 @Injectable()
@@ -34,6 +38,26 @@ export class ProductBacklogPrismaRepositoryAdapter
     return new ResultSucceeded(productBacklogEntities);
   }
 
+  async findOneById(
+    id: string,
+  ): Promise<ResultType<ProductBacklogEntity, Error>> {
+    const productBacklog = await this.prisma.productBacklog.findUnique({
+      where: { id: id },
+    });
+    if (!productBacklog) {
+      return new ResultFailed(Error('not found'));
+    }
+
+    const productBacklogEntity = ProductBacklogEntity.create({
+      id: productBacklog.id,
+      name: productBacklog.name,
+      description: productBacklog.description,
+      productOwnerId: productBacklog.productOwnerId,
+    });
+
+    return productBacklogEntity;
+  }
+
   async store(
     productBacklogEntity: ProductBacklogEntity,
   ): Promise<ResultType<string, Error>> {
@@ -56,6 +80,7 @@ export class ProductBacklogPrismaRepositoryAdapter
       return new ResultSucceeded(createResult.id);
     }
 
+    console.log(productBacklogEntity);
     const updateResult = await this.prisma.productBacklog.update({
       where: { id: productBacklog.id },
       data: {

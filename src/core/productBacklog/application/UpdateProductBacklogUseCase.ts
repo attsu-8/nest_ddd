@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ResultType, RESULT_TYPE } from 'src/shared/Result';
-import { ProductBacklogEntity } from '../domain/ProductBacklogEntiry';
+import { ResultSucceeded, ResultType, RESULT_TYPE } from 'src/shared/Result';
 import {
   UpdateProductBacklogPort,
   UpdateProductBacklogRequest,
@@ -15,23 +14,36 @@ export class UpdateProductBacklogUseCase implements UpdateProductBacklogPort {
   async updateProductBacklog(
     updateProductBacklogRequest: UpdateProductBacklogRequest,
   ): Promise<ResultType<string, Error>> {
-    const productBacklogEntity = ProductBacklogEntity.create({
-      id: updateProductBacklogRequest.id,
-      name: updateProductBacklogRequest.name,
-      description: updateProductBacklogRequest.description,
-      productOwnerId: updateProductBacklogRequest.productOwnerId,
-    });
+    if (
+      !updateProductBacklogRequest.description &&
+      !updateProductBacklogRequest.name &&
+      !updateProductBacklogRequest.productOwnerId
+    ) {
+      return new ResultSucceeded(updateProductBacklogRequest.id);
+    }
+
+    const productBacklogEntity =
+      await this.productBacklogRepositoryPort.findOneById(
+        updateProductBacklogRequest.id,
+      );
     if (productBacklogEntity.resultType === RESULT_TYPE.FAILED) {
       return productBacklogEntity;
     }
 
-    const result = await this.productBacklogRepositoryPort.store(
-      productBacklogEntity.value,
+    const updateEntityResult = productBacklogEntity.value.update(
+      updateProductBacklogRequest,
     );
-    if (result.resultType === RESULT_TYPE.FAILED) {
-      return result;
+    if (updateEntityResult.resultType === RESULT_TYPE.FAILED) {
+      return updateEntityResult;
     }
 
-    return result;
+    const storeResult = await this.productBacklogRepositoryPort.store(
+      updateEntityResult.value,
+    );
+    if (storeResult.resultType === RESULT_TYPE.FAILED) {
+      return storeResult;
+    }
+
+    return storeResult;
   }
 }

@@ -4,6 +4,10 @@ import { ProductBacklogEntity } from '../../domain/ProductBacklogEntiry';
 export abstract class ProductBacklogRepositoryPort {
   abstract findAll(): Promise<ResultType<ProductBacklogEntity[], Error>>;
 
+  abstract findOneById(
+    id: string,
+  ): Promise<ResultType<ProductBacklogEntity, Error>>;
+
   abstract store(
     productBacklogEntity: ProductBacklogEntity,
   ): Promise<ResultType<string, Error>>;
