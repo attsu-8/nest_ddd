@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { BacklogItemEntity } from 'src/core/backlogItem/domain/BacklogItemEntiry';
 import { BacklogItemRepositoryPort } from 'src/core/backlogItem/port/secondary/BacklogItemRepositoryPort';
-import { ResultSucceeded, ResultType } from '../../../../../shared/Result';
-import { PrismaService } from './Prisma.service';
+import { ResultSucceeded, ResultType } from '../../../../../../shared/Result';
+import { PrismaService } from '../Prisma.service';
 
 @Injectable()
 export class BacklogItemPrismaRepositoryAdapter
@@ -60,6 +60,11 @@ export class BacklogItemPrismaRepositoryAdapter
           storyPoint: backlogItemEntity.storyPoint.value,
           backlogItemPriority: backlogItemEntity.backlogItemPriority.value,
           description: backlogItemEntity.description,
+          productBacklog: {
+            connect: {
+              id: 'hoge',
+            },
+          },
           tasks: {
             create: backlogItemEntity.tasks.map((task) => {
               return {
