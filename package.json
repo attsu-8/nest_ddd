@@ -19,8 +19,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "schema:drop": "echo $1",
-    "migration": "npx prisma migrate dev --name $1",
-    "prisma:studio": "npx prisma studio"
+    "migration": "npx prisma migrate dev",
+    "migration:gen": "npx prisma migrate dev --create-only --name $1",
+    "prisma:studio": "npx prisma studio",
+    "seed": "npx prisma db seed"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.1.7",
@@ -84,6 +86,7 @@
     ]
   },
   "prisma": {
-    "schema": "src/infrastructure/adapter/secondary/repository/prisma/schema.prisma"
+    "schema": "src/infrastructure/adapter/secondary/repository/prisma/schema.prisma",
+    "seed": "ts-node src/infrastructure/adapter/secondary/repository/prisma/seeds/main.ts"
   }
 }

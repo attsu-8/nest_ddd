@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { Exception } from 'src/shared/exception';
 import { InMemoryRepositoryModule } from './inMemory/InMemoryRepository.module';
-import { PrismaRepositoryAdapterModule } from './prisma/PrismaRepositoryAdapter.module';
+import { PrismaRepositoryAdapterModule } from './prisma/repository/PrismaRepositoryAdapter.module';
 
 type RepositoryType = typeof process.env.REPOSITORY_TYPE;
 

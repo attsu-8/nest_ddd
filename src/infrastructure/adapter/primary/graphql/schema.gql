@@ -19,10 +19,19 @@ scalar DateTime
 type Mutation {
   createOneBacklogItem(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
   createOneUser(name: String!): Float!
+  createProductBacklog(description: String, name: String!, productOwnerId: String!): String!
+}
+
+type ProductBacklog {
+  description: String
+  id: ID!
+  name: String!
+  productOwnerId: String!
 }
 
 type Query {
   getAllBacklogItems: [BacklogItem!]!
+  getAllProductBacklogs: [ProductBacklog!]!
   getAllUsers: [User!]!
 }
 

@@ -1,8 +1,4 @@
-import {
-  ResultFailed,
-  ResultSucceeded,
-  ResultType,
-} from 'src/shared/Result';
+import { ResultFailed, ResultSucceeded, ResultType } from 'src/shared/Result';
 
 export class StoryPonitValueObject {
   private _value: number;

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserEntity } from 'src/core/user/domain/UserEntity';
 import { UserRepositoryPort } from 'src/core/user/port/secondary/UserRepositoryPort';
 import { ResultSucceeded, ResultType } from 'src/shared/Result';
-import { PrismaService } from './Prisma.service';
+import { PrismaService } from '../Prisma.service';
 
 @Injectable()
 export class UserPrismaRepositoryAdapter implements UserRepositoryPort {
