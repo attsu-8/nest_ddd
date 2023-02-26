@@ -3,8 +3,8 @@ import { ResultSucceeded, ResultType, RESULT_TYPE } from 'src/shared/Result';
 import {
   UpdateProductBacklogPort,
   UpdateProductBacklogRequest,
-} from '../port/primary/UpdateProductBacklogPort';
-import { ProductBacklogRepositoryPort } from '../port/secondary/ProductRepositoryPort';
+} from '../../port/primary/UpdateProductBacklogPort';
+import { ProductBacklogRepositoryPort } from '../../port/secondary/ProductRepositoryPort';
 
 @Injectable()
 export class UpdateProductBacklogUseCase implements UpdateProductBacklogPort {

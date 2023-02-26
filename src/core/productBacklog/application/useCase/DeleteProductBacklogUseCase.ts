@@ -3,8 +3,8 @@ import { ResultType, RESULT_TYPE } from 'src/shared/Result';
 import {
   DeleteProductBacklogPort,
   DeleteProductBacklogRequest,
-} from '../port/primary/DeleteProductBacklogPort';
-import { ProductBacklogRepositoryPort } from '../port/secondary/ProductRepositoryPort';
+} from '../../port/primary/DeleteProductBacklogPort';
+import { ProductBacklogRepositoryPort } from '../../port/secondary/ProductRepositoryPort';
 
 @Injectable()
 export class DeleteProductBacklogUseCase implements DeleteProductBacklogPort {
