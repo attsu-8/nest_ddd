@@ -1,24 +1,25 @@
 import { DateTime } from 'luxon';
 import { ResultType } from 'src/shared/Result';
 
-interface TaskCommand {
+interface CreateTaskRequest {
   name: string;
-  description?: string;
   deadline: DateTime;
   status: number;
   userId: string;
+  description?: string;
 }
 
-export interface CreateBacklogItemCommand {
+export interface CreateBacklogItemRequest {
   story: string;
   storyPoint: number;
   backlogItemPriority: number;
+  productBacklogId: string;
+  tasks: CreateTaskRequest[];
   description?: string;
-  tasks: TaskCommand[];
 }
 
-export abstract class CreateBacklogItemUseCasePort {
-  abstract execute(
-    createBacklogItemCommand: CreateBacklogItemCommand,
+export abstract class CreateBacklogItemPort {
+  abstract createBacklogItem(
+    createBacklogItemRequest: CreateBacklogItemRequest,
   ): Promise<ResultType<string, Error>>;
 }

@@ -14,6 +14,7 @@ export class BacklogItemInMemoryRepositoryAdapter
       story: 'story',
       storyPoint: 1,
       backlogItemPriority: 1,
+      productBacklogId: 'hge',
       description: 'hoge',
       tasks: [],
     }).unwrap(),
@@ -21,6 +22,10 @@ export class BacklogItemInMemoryRepositoryAdapter
 
   async findAll(): Promise<ResultType<BacklogItemEntity[], Error>> {
     return new ResultSucceeded([]);
+  }
+
+  async findOneById(id: string): Promise<ResultType<BacklogItemEntity, Error>> {
+    return new ResultSucceeded({} as BacklogItemEntity);
   }
 
   async store(
@@ -33,5 +38,9 @@ export class BacklogItemInMemoryRepositoryAdapter
     });
 
     return new ResultSucceeded('1');
+  }
+
+  async delete(id: string): Promise<ResultType<string, Error>> {
+    return new ResultSucceeded('');
   }
 }

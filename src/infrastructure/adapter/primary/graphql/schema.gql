@@ -4,8 +4,9 @@
 
 type BacklogItem {
   backlogItemPriority: Float!
-  description: String!
+  description: String
   id: ID!
+  productBacklogId: String!
   story: String!
   storyPoint: Float!
   tasks: [Task!]!
@@ -17,11 +18,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
-  createOneBacklogItem(backlogItemPriority: Float!, description: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
+  createBacklogItem(backlogItemPriority: Float!, description: String, productBacklogId: String!, story: String!, storyPoint: Float!, tasks: [TaskInput!]!): Float!
   createProductBacklog(description: String, name: String!, productOwnerId: String!): String!
   createUser(name: String!): String!
+  deleteBacklogItem(id: String!): String!
   deleteProductBacklog(id: String!): String!
   deleteUser(id: String!): String!
+  updateBacklogItem(backlogItemPriority: Float, description: String, id: String!, productBacklogId: String, story: String, storyPoint: Float, tasks: [TaskUpdateInput!]!): String!
   updateProductBacklog(description: String, id: String!, name: String, productOwnerId: String): String!
   updateUser(id: String!, name: String!): String!
 }
@@ -54,6 +57,15 @@ input TaskInput {
   name: String!
   status: Float!
   userId: String!
+}
+
+input TaskUpdateInput {
+  deadline: DateTime
+  description: String
+  id: String!
+  name: String
+  status: Float
+  userId: String
 }
 
 type User {

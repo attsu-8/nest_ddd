@@ -8,9 +8,7 @@ import { ProductBacklogPrismaRepositoryAdapter } from './ProductBacklogPrismaRep
 import { UserPrismaRepositoryAdapter } from './UserPrismaRepositoryAdapter';
 
 const repositoryProviders: Provider<
-  | BacklogItemPrismaRepositoryAdapter
-  | UserPrismaRepositoryAdapter
-  | ProductBacklogPrismaRepositoryAdapter
+  BacklogItemRepositoryPort | UserRepositoryPort | ProductBacklogRepositoryPort
 >[] = [
   {
     provide: BacklogItemRepositoryPort,
@@ -27,7 +25,6 @@ const repositoryProviders: Provider<
 ];
 
 @Module({
-  //   imports: [PrismaService],
   providers: [...repositoryProviders, PrismaService],
   exports: [...repositoryProviders, PrismaService],
 })
