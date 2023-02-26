@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ResultType, RESULT_TYPE } from 'src/shared/Result';
-import { ProductBacklogEntity } from '../domain/ProductBacklogEntiry';
+import { ProductBacklogEntity } from '../../domain/ProductBacklogEntiry';
 import {
   CreateProductBacklogPort,
   CreateProductBacklogRequest,
-} from '../port/primary/CreateProductBacklogPort';
-import { ProductBacklogRepositoryPort } from '../port/secondary/ProductRepositoryPort';
+} from '../../port/primary/CreateProductBacklogPort';
+import { ProductBacklogRepositoryPort } from '../../port/secondary/ProductRepositoryPort';
 
 import { v4 as uuidv4 } from 'uuid';
 

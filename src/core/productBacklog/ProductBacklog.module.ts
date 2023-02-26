@@ -1,9 +1,9 @@
 import { Module, Provider } from '@nestjs/common';
 import { RepositoryAdapterModule } from 'src/infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
-import { CreateProductBacklogUseCase } from './application/CreateProductBacklogUseCase';
-import { DeleteProductBacklogUseCase } from './application/DeleteProductBacklogUseCase';
-import { GetProductBacklogsUseCase } from './application/GetProductBacklogsUseCase';
-import { UpdateProductBacklogUseCase } from './application/UpdateProductBacklogUseCase';
+import { CreateProductBacklogUseCase } from './application/useCase/CreateProductBacklogUseCase';
+import { DeleteProductBacklogUseCase } from './application/useCase/DeleteProductBacklogUseCase';
+import { GetProductBacklogsUseCase } from './application/useCase/GetProductBacklogsUseCase';
+import { UpdateProductBacklogUseCase } from './application/useCase/UpdateProductBacklogUseCase';
 import { CreateProductBacklogPort } from './port/primary/CreateProductBacklogPort';
 import { DeleteProductBacklogPort } from './port/primary/DeleteProductBacklogPort';
 import { GetProductBacklogsPort } from './port/primary/GetProductBacklogsPort';
