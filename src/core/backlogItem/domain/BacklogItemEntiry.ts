@@ -23,58 +23,61 @@ interface BacklogItemEntiryFactoryParams {
   story: string;
   storyPoint: number;
   backlogItemPriority: number;
-  description?: string;
+  productBacklogId: string;
   tasks: TaskFactoryParams[];
-}
-
-interface BacklogItemEntiryCreationParams {
-  id: string;
-  story: string;
-  storyPoint: StoryPonitValueObject;
-  backlogItemPriority: BacklogItemPriorityValueObject;
   description?: string;
-  tasks: TaskEntity[];
 }
 
 export class BacklogItemEntity {
-  private _id: string;
-  private _story: string;
-  private _storyPoint: StoryPonitValueObject;
-  private _backlogItemPriority: BacklogItemPriorityValueObject;
-  private _description?: string;
-  private _tasks: TaskEntity[];
+  private constructor(
+    public readonly id: string,
+    public readonly story: string,
+    public readonly storyPoint: StoryPonitValueObject,
+    public readonly backlogItemPriority: BacklogItemPriorityValueObject,
+    public readonly productBacklogId: string,
+    public readonly tasks: TaskEntity[],
+    public readonly description?: string,
+  ) {}
 
-  get id(): string {
-    return this._id;
+  update(updateParams: {
+    story?: string;
+    storyPoint?: number;
+    backlogItemPriority?: number;
+    productBacklogId?: string;
+    tasks?: {
+      id: string;
+      name?: string;
+      description?: string;
+      deadline?: DateTime;
+      status?: number;
+      userId?: string;
+    }[];
+    description?: string;
+  }) {
+    return BacklogItemEntity.create({
+      id: this.id,
+      story: updateParams.story ?? this.story,
+      storyPoint: updateParams.storyPoint ?? this.storyPoint.value,
+      backlogItemPriority:
+        updateParams.backlogItemPriority ?? this.backlogItemPriority.value,
+      productBacklogId: updateParams.productBacklogId ?? this.productBacklogId,
+      tasks: updateParams.tasks.map((task) => {
+        const oldTask = this.tasks.find((t) => task.id === t.id);
+        return {
+          id: task.id,
+          name: task.name ?? oldTask.name,
+          description: task.description ?? oldTask.description,
+          deadline: task.deadline ?? oldTask.deadline,
+          status: task.status ?? (oldTask.status as number),
+          userId: task.userId ?? oldTask.userId,
+        };
+      }),
+      description: updateParams.description ?? this.description,
+    });
   }
 
-  get story(): string {
-    return this._story;
-  }
-
-  get storyPoint(): StoryPonitValueObject {
-    return this._storyPoint;
-  }
-
-  get backlogItemPriority(): BacklogItemPriorityValueObject {
-    return this._backlogItemPriority;
-  }
-
-  get description(): string {
-    return this._description;
-  }
-
-  get tasks(): TaskEntity[] {
-    return this._tasks;
-  }
-
-  private constructor(params: BacklogItemEntiryCreationParams) {
-    this._id = params.id;
-    this._story = params.story;
-    this._storyPoint = params.storyPoint;
-    this._backlogItemPriority = params.backlogItemPriority;
-    this._description = params.description;
-    this._tasks = params.tasks;
+  static hasDuplicateTaskName(taskNames: string[]): boolean {
+    return taskNames.length !== new Set(taskNames).size;
   }
 
   static create(
@@ -97,6 +100,15 @@ export class BacklogItemEntity {
       return taskEntity;
     });
 
+    if (
+      BacklogItemEntity.hasDuplicateTaskName(
+        params.tasks.map((task) => {
+          return task.name;
+        }),
+      )
+    ) {
+      return new ResultFailed(Error('duplicated error'));
+    }
     const tasks = [];
     for (const taskEntity of taskEntities) {
       if (taskEntity.resultType === RESULT_TYPE.FAILED) {
@@ -106,14 +118,15 @@ export class BacklogItemEntity {
     }
 
     return new ResultSucceeded(
-      new BacklogItemEntity({
-        id: params.id,
-        story: params.story,
-        storyPoint: storyPoint.value,
-        backlogItemPriority: backlogItemPriority.value,
-        description: params.description,
-        tasks: tasks,
-      }),
+      new BacklogItemEntity(
+        params.id,
+        params.story,
+        storyPoint.value,
+        backlogItemPriority.value,
+        params.productBacklogId,
+        tasks,
+        params.description,
+      ),
     );
   }
 }

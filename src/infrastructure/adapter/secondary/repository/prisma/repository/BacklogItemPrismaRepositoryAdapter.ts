@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { BacklogItemEntity } from 'src/core/backlogItem/domain/BacklogItemEntiry';
 import { BacklogItemRepositoryPort } from 'src/core/backlogItem/port/secondary/BacklogItemRepositoryPort';
-import { ResultSucceeded, ResultType } from '../../../../../../shared/Result';
+import {
+  ResultFailed,
+  ResultSucceeded,
+  ResultType,
+} from '../../../../../../shared/Result';
 import { PrismaService } from '../Prisma.service';
 
 @Injectable()
@@ -14,6 +18,7 @@ export class BacklogItemPrismaRepositoryAdapter
     const backlogItems = await this.prisma.backlogItem.findMany({
       include: {
         tasks: true,
+        productBacklog: true,
       },
     });
 
@@ -34,13 +39,46 @@ export class BacklogItemPrismaRepositoryAdapter
         story: backlogItem.story,
         storyPoint: backlogItem.storyPoint,
         backlogItemPriority: backlogItem.backlogItemPriority,
-        description: backlogItem.description,
+        productBacklogId: backlogItem.productBacklogId,
         tasks: taskEntities,
+        description: backlogItem.description,
       }).unwrap();
       return backlogItemEntity;
     });
 
     return new ResultSucceeded(backlogItemEntities);
+  }
+
+  async findOneById(id: string): Promise<ResultType<BacklogItemEntity, Error>> {
+    const backlogItem = await this.prisma.backlogItem.findUnique({
+      where: { id: id },
+      include: {
+        tasks: true,
+        productBacklog: true,
+      },
+    });
+    if (!backlogItem) {
+      return new ResultFailed(Error('not found'));
+    }
+
+    const taskEntities = backlogItem.tasks.map((task) => {
+      return {
+        ...task,
+        deadline: DateTime.fromJSDate(task.deadline),
+      };
+    });
+
+    const backlogItemEntity = BacklogItemEntity.create({
+      id: backlogItem.id,
+      story: backlogItem.story,
+      storyPoint: backlogItem.storyPoint,
+      backlogItemPriority: backlogItem.backlogItemPriority,
+      productBacklogId: backlogItem.productBacklogId,
+      tasks: taskEntities,
+      description: backlogItem.description,
+    }).unwrap();
+
+    return new ResultSucceeded(backlogItemEntity);
   }
 
   async store(
@@ -49,6 +87,10 @@ export class BacklogItemPrismaRepositoryAdapter
     const backlogItem = await this.prisma.backlogItem.findUnique({
       where: {
         id: backlogItemEntity.id,
+      },
+      include: {
+        tasks: true,
+        productBacklog: true,
       },
     });
 
@@ -62,7 +104,7 @@ export class BacklogItemPrismaRepositoryAdapter
           description: backlogItemEntity.description,
           productBacklog: {
             connect: {
-              id: 'hoge',
+              id: backlogItemEntity.productBacklogId,
             },
           },
           tasks: {
@@ -72,7 +114,7 @@ export class BacklogItemPrismaRepositoryAdapter
                 name: task.name,
                 description: task.description,
                 deadline: task.deadline.toJSDate(),
-                status: 1, // TODO:
+                status: task.status as number,
                 userId: task.userId,
               };
             }),
@@ -83,9 +125,27 @@ export class BacklogItemPrismaRepositoryAdapter
       return new ResultSucceeded(createResult.id);
     }
 
-    const updateResult = await this.prisma.backlogItem.update({
+    const updateTaskIdSets = new Set(
+      backlogItemEntity.tasks.map((task) => task.id),
+    );
+
+    const oldTaskIdSets = new Set(backlogItem.tasks.map((task) => task.id));
+
+    const deleteIds = new Set(
+      [...oldTaskIdSets].filter((x) => !updateTaskIdSets.has(x)),
+    );
+
+    await this.prisma.task.deleteMany({
+      where: {
+        id: {
+          in: Array.from(deleteIds),
+        },
+      },
+    });
+
+    const updateResult = await this.prisma.backlogItem.upsert({
       where: { id: backlogItem.id },
-      data: {
+      update: {
         story: backlogItemEntity.story,
         storyPoint: backlogItemEntity.storyPoint.value,
         backlogItemPriority: backlogItemEntity.backlogItemPriority.value,
@@ -100,11 +160,33 @@ export class BacklogItemPrismaRepositoryAdapter
                 name: task.name,
                 description: task.description,
                 deadline: task.deadline.toJSDate(),
-                status: 1, // TODO:
+                status: task.status as number,
                 userId: task.userId,
               },
             };
           }),
+        },
+      },
+      create: {
+        id: backlogItemEntity.id,
+        story: backlogItemEntity.story,
+        storyPoint: backlogItemEntity.storyPoint.value,
+        backlogItemPriority: backlogItemEntity.backlogItemPriority.value,
+        description: backlogItemEntity.description,
+        productBacklogId: backlogItemEntity.productBacklogId,
+        tasks: {
+          createMany: {
+            data: backlogItemEntity.tasks.map((task) => {
+              return {
+                id: task.id,
+                name: task.name,
+                description: task.description,
+                deadline: task.deadline.toJSDate(),
+                status: task.status as number,
+                userId: task.userId,
+              };
+            }),
+          },
         },
       },
     });
@@ -112,61 +194,11 @@ export class BacklogItemPrismaRepositoryAdapter
     return new ResultSucceeded(updateResult.id);
   }
 
-  //   async save(task: TaskEntity): Promise<void> {
-  //     await this.prisma.task.create({
-  //       data: {
-  //         id: task.id,
-  //         name: task.name.value,
-  //         done: task.done,
-  //       },
-  //     });
-  //   }
+  async delete(id: string): Promise<ResultType<string, Error>> {
+    const deleteResult = await this.prisma.backlogItem.delete({
+      where: { id: id },
+    });
 
-  //   async updateOne(task: TaskEntity): Promise<void> {
-  //     await this.prisma.task.update({
-  //       where: {
-  //         id: task.id,
-  //       },
-  //       data: {
-  //         id: task.id,
-  //         name: task.name.value,
-  //         done: task.done,
-  //       },
-  //     });
-  //   }
-
-  //   async deleteOne(id: number): Promise<void> {
-  //     await this.prisma.task.delete({
-  //       where: { id: id },
-  //     });
-  //   }
-
-  //   async findOneById(id: number): Promise<TaskEntity | null> {
-  //     const task = await this.prisma.task.findUnique({
-  //       where: { id: id },
-  //     });
-
-  //     if (!task) {
-  //       return null;
-  //     }
-
-  //     return new TaskEntity(task.id, new TaskName(task.name), task.done);
-  //   }
-
-  //   async findOneByName(taskName: TaskName): Promise<TaskEntity | null> {
-  //     const task = await this.prisma.task.findUnique({
-  //       where: { name: taskName.value },
-  //     });
-
-  //     if (!task) {
-  //       return null;
-  //     }
-  //     return new TaskEntity(task.id, new TaskName(task.name), task.done);
-  //   }
-
-  //   async getNextId(): Promise<number> {
-  //     const tasks = await this.prisma.task.findMany();
-
-  //     return tasks.length + 1;
-  //   }
+    return new ResultSucceeded(deleteResult.id);
+  }
 }

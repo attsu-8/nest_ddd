@@ -38,3 +38,24 @@ export class TaskInput {
   @Field()
   userId: string;
 }
+
+@InputType()
+export class TaskUpdateInput {
+  @Field()
+  id: string;
+
+  @Field()
+  name?: string;
+
+  @Field()
+  description?: string;
+
+  @Field()
+  deadline?: Date;
+
+  @Field()
+  status?: number;
+
+  @Field()
+  userId?: string;
+}

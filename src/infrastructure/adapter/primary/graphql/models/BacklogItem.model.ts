@@ -16,8 +16,11 @@ export class BacklogItem {
   backlogItemPriority: number;
 
   @Field()
-  description: string;
+  productBacklogId: string;
 
   @Field()
   tasks: Task[];
+
+  @Field()
+  description?: string;
 }

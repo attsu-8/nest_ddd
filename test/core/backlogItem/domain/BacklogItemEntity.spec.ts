@@ -10,6 +10,7 @@ describe('# BacklogItemEntity', () => {
       storyPoint: 1,
       backlogItemPriority: 1,
       description: 'description',
+      productBacklogId: 'hoge',
       tasks: [
         {
           id: uuidv4(),

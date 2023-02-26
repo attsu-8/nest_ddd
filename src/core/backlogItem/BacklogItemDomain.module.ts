@@ -1,29 +1,36 @@
 import { Module, Provider } from '@nestjs/common';
 import { RepositoryAdapterModule } from 'src/infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
-import { CreateBacklogItemUseCase } from './application/CreateBacklogItemUseCase';
-import { GetBacklogItemsUseCase } from './application/GetBacklogItemsUseCase';
-import { CreateBacklogItemUseCasePort } from './port/primary/CreateBacklogItemUseCasePort';
-import { GetBacklogItemsUseCasePort } from './port/primary/GetBacklogItemsUseCasePort';
+import { CreateBacklogItemUseCase } from './application/useCase/CreateBacklogItemUseCase';
+import { GetBacklogItemsUseCase } from './application/useCase/GetBacklogItemsUseCase';
+import { GetBacklogItemsPort } from './port/primary/GetBacklogItemsPort';
+import { CreateBacklogItemPort } from './port/primary/CreateBacklogItemPort';
+import { UpdateBacklogItemPort } from './port/primary/UpdateBacklogItemPort';
+import { UpdateBacklogItemUseCase } from './application/useCase/UpdateBacklogItemUseCase';
+import { DeleteBacklogItemPort } from './port/primary/DeleteBacklogItemPort';
+import { DeleteBacklogItemUseCase } from './application/useCase/DeleteBacklogItemUseCase';
 
 const useCaseProviders: Provider<
-  CreateBacklogItemUseCasePort | GetBacklogItemsUseCase
+  | CreateBacklogItemPort
+  | GetBacklogItemsPort
+  | UpdateBacklogItemPort
+  | DeleteBacklogItemPort
 >[] = [
   {
-    provide: CreateBacklogItemUseCasePort,
+    provide: CreateBacklogItemPort,
     useClass: CreateBacklogItemUseCase,
   },
   {
-    provide: GetBacklogItemsUseCasePort,
+    provide: GetBacklogItemsPort,
     useClass: GetBacklogItemsUseCase,
   },
-  // {
-  //   provide: UpdateTaskUseCasePort,
-  //   useClass: UpdateTaskUseCase,
-  // },
-  // {
-  //   provide: DeleteTaskUseCasePort,
-  //   useClass: DeleteTaskUseCase,
-  // },
+  {
+    provide: UpdateBacklogItemPort,
+    useClass: UpdateBacklogItemUseCase,
+  },
+  {
+    provide: DeleteBacklogItemPort,
+    useClass: DeleteBacklogItemUseCase,
+  },
 ];
 
 @Module({

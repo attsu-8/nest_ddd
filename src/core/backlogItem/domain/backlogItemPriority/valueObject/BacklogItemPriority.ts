@@ -1,14 +1,7 @@
 import { ResultFailed, ResultSucceeded, ResultType } from 'src/shared/Result';
 
 export class BacklogItemPriorityValueObject {
-  private _value: number;
-  private constructor(value: number) {
-    this._value = value;
-  }
-
-  get value(): number {
-    return this._value;
-  }
+  private constructor(public readonly value: number) {}
 
   static create(
     maybeBacklogItemPriority: number,
