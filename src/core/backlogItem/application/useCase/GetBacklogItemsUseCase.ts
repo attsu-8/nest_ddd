@@ -18,4 +18,12 @@ export class GetBacklogItemsUseCase implements GetBacklogItemsPort {
 
     return backlogItemEntities;
   }
+
+  async findByProductBacklogId(
+    productBacklogId: string,
+  ): Promise<ResultType<BacklogItemEntity[], Error>> {
+    const backlogItemEntities =
+      await this.backlogItemRepository.findByProductBacklogId(productBacklogId);
+    return backlogItemEntities;
+  }
 }

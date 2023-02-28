@@ -24,6 +24,12 @@ export class BacklogItemInMemoryRepositoryAdapter
     return new ResultSucceeded([]);
   }
 
+  async findByProductBacklogId(
+    productBacklogId: string,
+  ): Promise<ResultType<BacklogItemEntity[], Error>> {
+    return new ResultSucceeded([]);
+  }
+
   async findOneById(id: string): Promise<ResultType<BacklogItemEntity, Error>> {
     return new ResultSucceeded({} as BacklogItemEntity);
   }

@@ -47,6 +47,40 @@ export class BacklogItemResolver {
     return formatted;
   }
 
+  @Query(() => [BacklogItem])
+  async getBacklogItemsByProductBacklogId(
+    @Args('productBacklogId') productBacklogId: string,
+  ): Promise<BacklogItem[]> {
+    const backlogItems = await this.getBacklogItemsPort.findByProductBacklogId(
+      productBacklogId,
+    );
+    if (backlogItems.resultType === RESULT_TYPE.FAILED) {
+      return [];
+    }
+    const formatted = backlogItems.value.map((backlogItem) => {
+      return {
+        id: backlogItem.id,
+        story: backlogItem.story,
+        storyPoint: backlogItem.storyPoint.value,
+        backlogItemPriority: backlogItem.backlogItemPriority.value,
+        productBacklogId: backlogItem.productBacklogId,
+        tasks: backlogItem.tasks.map((task) => {
+          return {
+            id: task.id,
+            name: task.name,
+            deadline: task.deadline.toJSDate(),
+            description: task.description,
+            userId: task.userId,
+            status: task.status as number,
+          };
+        }),
+        description: backlogItem.description,
+      };
+    });
+
+    return formatted;
+  }
+
   @Mutation(() => Number)
   async createBacklogItem(
     @Args({ name: 'story', type: () => String })

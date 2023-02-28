@@ -40,6 +40,7 @@ type Query {
   getAllBacklogItems: [BacklogItem!]!
   getAllProductBacklogs: [ProductBacklog!]!
   getAllUsers: [User!]!
+  getBacklogItemsByProductBacklogId(productBacklogId: String!): [BacklogItem!]!
 }
 
 type Task {
