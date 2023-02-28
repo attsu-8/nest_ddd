@@ -49,6 +49,46 @@ export class BacklogItemPrismaRepositoryAdapter
     return new ResultSucceeded(backlogItemEntities);
   }
 
+  async findByProductBacklogId(
+    productBacklogId: string,
+  ): Promise<ResultType<BacklogItemEntity[], Error>> {
+    const backlogItems = await this.prisma.backlogItem.findMany({
+      include: {
+        tasks: true,
+        productBacklog: true,
+      },
+      where: {
+        productBacklogId: productBacklogId,
+      },
+    });
+
+    if (backlogItems.length === 0) {
+      return new ResultSucceeded([]);
+    }
+
+    const backlogItemEntities = backlogItems.map((backlogItem) => {
+      const taskEntities = backlogItem.tasks.map((task) => {
+        return {
+          ...task,
+          deadline: DateTime.fromJSDate(task.deadline),
+        };
+      });
+
+      const backlogItemEntity = BacklogItemEntity.create({
+        id: backlogItem.id,
+        story: backlogItem.story,
+        storyPoint: backlogItem.storyPoint,
+        backlogItemPriority: backlogItem.backlogItemPriority,
+        productBacklogId: backlogItem.productBacklogId,
+        tasks: taskEntities,
+        description: backlogItem.description,
+      }).unwrap();
+      return backlogItemEntity;
+    });
+
+    return new ResultSucceeded(backlogItemEntities);
+  }
+
   async findOneById(id: string): Promise<ResultType<BacklogItemEntity, Error>> {
     const backlogItem = await this.prisma.backlogItem.findUnique({
       where: { id: id },
