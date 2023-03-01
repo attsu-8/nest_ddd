@@ -2,10 +2,10 @@ import { Module, Provider } from '@nestjs/common';
 import { BacklogItemRepositoryPort } from 'src/core/backlogItem/port/secondary/BacklogItemRepositoryPort';
 import { ProductBacklogRepositoryPort } from 'src/core/productBacklog/port/secondary/ProductRepositoryPort';
 import { UserRepositoryPort } from 'src/core/user/port/secondary/UserRepositoryPort';
-import { BacklogItemPrismaRepositoryAdapter } from './BacklogItemPrismaRepositoryAdapter';
-import { PrismaService } from '../Prisma.service';
-import { ProductBacklogPrismaRepositoryAdapter } from './ProductBacklogPrismaRepositoryAdapter';
-import { UserPrismaRepositoryAdapter } from './UserPrismaRepositoryAdapter';
+import { BacklogItemPrismaRepositoryAdapter } from './repository/backlogItem/BacklogItemPrismaRepositoryAdapter';
+import { PrismaService } from './Prisma.service';
+import { ProductBacklogPrismaRepositoryAdapter } from './repository/productBacklog/ProductBacklogPrismaRepositoryAdapter';
+import { UserPrismaRepositoryAdapter } from './repository/user/UserPrismaRepositoryAdapter';
 
 const repositoryProviders: Provider<
   BacklogItemRepositoryPort | UserRepositoryPort | ProductBacklogRepositoryPort
@@ -26,6 +26,6 @@ const repositoryProviders: Provider<
 
 @Module({
   providers: [...repositoryProviders, PrismaService],
-  exports: [...repositoryProviders, PrismaService],
+  exports: [...repositoryProviders],
 })
-export class PrismaRepositoryAdapterModule {}
+export class PrismaAdapterModule {}

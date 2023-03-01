@@ -1,5 +1,5 @@
 import { Module, Provider } from '@nestjs/common';
-import { RepositoryAdapterModule } from 'src/infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
+import { PrismaAdapterModule } from 'src/infrastructure/adapter/secondary/database/prisma/PrismaAdapter.module';
 import { CreateProductBacklogUseCase } from './application/useCase/CreateProductBacklogUseCase';
 import { DeleteProductBacklogUseCase } from './application/useCase/DeleteProductBacklogUseCase';
 import { GetProductBacklogsUseCase } from './application/useCase/GetProductBacklogsUseCase';
@@ -34,7 +34,7 @@ const useCaseProviders: Provider<
 ];
 
 @Module({
-  imports: [RepositoryAdapterModule.register(process.env.REPOSITORY_TYPE)],
+  imports: [PrismaAdapterModule],
   providers: [...useCaseProviders],
   exports: [...useCaseProviders],
 })
