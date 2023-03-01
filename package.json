@@ -86,7 +86,7 @@
     ]
   },
   "prisma": {
-    "schema": "src/infrastructure/adapter/secondary/repository/prisma/schema.prisma",
-    "seed": "ts-node src/infrastructure/adapter/secondary/repository/prisma/seeds/main.ts"
+    "schema": "src/infrastructure/adapter/secondary/database/prisma/schema.prisma",
+    "seed": "ts-node src/infrastructure/adapter/secondary/database/prisma/seed/main.ts"
   }
 }

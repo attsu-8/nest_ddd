@@ -6,8 +6,8 @@ import {
   ResultFailed,
   ResultSucceeded,
   ResultType,
-} from '../../../../../../shared/Result';
-import { PrismaService } from '../Prisma.service';
+} from '../../../../../../../shared/Result';
+import { PrismaService } from '../../Prisma.service';
 
 @Injectable()
 export class BacklogItemPrismaRepositoryAdapter

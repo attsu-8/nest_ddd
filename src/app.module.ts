@@ -2,11 +2,11 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { BacklogItemDomainModule } from './core/backlogItem/BacklogItemDomain.module';
+import { BacklogItemModule } from './core/backlogItem/BacklogItem.module';
 import { ProductBacklogModule } from './core/productBacklog/ProductBacklog.module';
-import { UserDomainModule } from './core/user/UserDomain.module';
+import { UserModule } from './core/user/User.module';
 import { GraphQLAdapterModule } from './infrastructure/adapter/primary/graphql/GraphQLAdapterModule.module';
-import { RepositoryAdapterModule } from './infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
+import { PrismaAdapterModule } from './infrastructure/adapter/secondary/database/prisma/PrismaAdapter.module';
 
 @Module({
   imports: [
@@ -18,12 +18,11 @@ import { RepositoryAdapterModule } from './infrastructure/adapter/secondary/repo
       sortSchema: true,
       driver: ApolloDriver,
     }),
-    RepositoryAdapterModule.register(process.env.REPOSITORY_TYPE),
-    BacklogItemDomainModule,
+    PrismaAdapterModule,
+    BacklogItemModule,
     ProductBacklogModule,
-    UserDomainModule,
+    UserModule,
     GraphQLAdapterModule,
   ],
-  // controllers: [TaskController],
 })
 export class AppModule {}

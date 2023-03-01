@@ -1,5 +1,4 @@
 import { Module, Provider } from '@nestjs/common';
-import { RepositoryAdapterModule } from 'src/infrastructure/adapter/secondary/repository/RepositoryAdapter.module';
 import { CreateBacklogItemUseCase } from './application/useCase/CreateBacklogItemUseCase';
 import { GetBacklogItemsUseCase } from './application/useCase/GetBacklogItemsUseCase';
 import { GetBacklogItemsPort } from './port/primary/GetBacklogItemsPort';
@@ -8,6 +7,7 @@ import { UpdateBacklogItemPort } from './port/primary/UpdateBacklogItemPort';
 import { UpdateBacklogItemUseCase } from './application/useCase/UpdateBacklogItemUseCase';
 import { DeleteBacklogItemPort } from './port/primary/DeleteBacklogItemPort';
 import { DeleteBacklogItemUseCase } from './application/useCase/DeleteBacklogItemUseCase';
+import { PrismaAdapterModule } from 'src/infrastructure/adapter/secondary/database/prisma/PrismaAdapter.module';
 
 const useCaseProviders: Provider<
   | CreateBacklogItemPort
@@ -34,8 +34,8 @@ const useCaseProviders: Provider<
 ];
 
 @Module({
-  imports: [RepositoryAdapterModule.register(process.env.REPOSITORY_TYPE)],
+  imports: [PrismaAdapterModule],
   providers: [...useCaseProviders],
   exports: [...useCaseProviders],
 })
-export class BacklogItemDomainModule {}
+export class BacklogItemModule {}
