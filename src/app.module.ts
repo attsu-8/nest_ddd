@@ -10,6 +10,12 @@ import { PrismaAdapterModule } from './infrastructure/adapter/secondary/database
 
 @Module({
   imports: [
+    /* Core */
+    BacklogItemModule,
+    ProductBacklogModule,
+    UserModule,
+
+    /* Primary Adapter */
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: join(
         process.cwd(),
@@ -18,11 +24,10 @@ import { PrismaAdapterModule } from './infrastructure/adapter/secondary/database
       sortSchema: true,
       driver: ApolloDriver,
     }),
-    PrismaAdapterModule,
-    BacklogItemModule,
-    ProductBacklogModule,
-    UserModule,
     GraphQLAdapterModule,
+
+    /* Secondary Adapter */
+    PrismaAdapterModule,
   ],
 })
 export class AppModule {}

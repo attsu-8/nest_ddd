@@ -4,7 +4,7 @@ import { DeleteUserPort } from 'src/core/user/port/primary/DeleteUserPort';
 import { GetUsersPort } from 'src/core/user/port/primary/GetUsersPort';
 import { UpdateUserPort } from 'src/core/user/port/primary/UpdateUserPort';
 import { RESULT_TYPE } from 'src/shared/Result';
-import { User } from '../models/User.model';
+import { User } from '../model/User.model';
 
 @Resolver()
 export class UserResolver {

@@ -5,8 +5,8 @@ import { DeleteBacklogItemPort } from 'src/core/backlogItem/port/primary/DeleteB
 import { GetBacklogItemsPort } from 'src/core/backlogItem/port/primary/GetBacklogItemsPort';
 import { UpdateBacklogItemPort } from 'src/core/backlogItem/port/primary/UpdateBacklogItemPort';
 import { RESULT_TYPE } from 'src/shared/Result';
-import { BacklogItem } from '../models/BacklogItem.model';
-import { Task, TaskInput, TaskUpdateInput } from '../models/Task.model';
+import { BacklogItem } from '../model/BacklogItem.model';
+import { Task, TaskInput, TaskUpdateInput } from '../model/Task.model';
 
 @Resolver()
 export class BacklogItemResolver {
