@@ -4,7 +4,7 @@ import { DeleteProductBacklogPort } from 'src/core/productBacklog/port/primary/D
 import { GetProductBacklogsPort } from 'src/core/productBacklog/port/primary/GetProductBacklogsPort';
 import { UpdateProductBacklogPort } from 'src/core/productBacklog/port/primary/UpdateProductBacklogPort';
 import { RESULT_TYPE } from 'src/shared/Result';
-import { ProductBacklog } from '../models/ProductBacklog.model';
+import { ProductBacklog } from '../model/ProductBacklog.model';
 
 @Resolver()
 export class ProductBacklogResolver {
