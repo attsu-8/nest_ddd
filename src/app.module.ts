@@ -5,7 +5,9 @@ import { join } from 'path';
 import { BacklogItemModule } from './core/backlogItem/BacklogItem.module';
 import { ProductBacklogModule } from './core/productBacklog/ProductBacklog.module';
 import { UserModule } from './core/user/User.module';
-import { GraphQLAdapterModule } from './infrastructure/adapter/primary/graphql/GraphQLAdapterModule.module';
+import { BacklogItemGraphQLAdapterModule } from './infrastructure/adapter/primary/graphql/backlogItem/BacklogItemGraphQLAdapter.module';
+import { ProductBacklogGraphQLAdapterModule } from './infrastructure/adapter/primary/graphql/productBacklog/ProductBacklogGraphQLAdapter.module';
+import { UserGraphQLAdapterModule } from './infrastructure/adapter/primary/graphql/user/UserGraphQLAdapter.module';
 import { PrismaAdapterModule } from './infrastructure/adapter/secondary/database/prisma/PrismaAdapter.module';
 
 @Module({
@@ -24,7 +26,9 @@ import { PrismaAdapterModule } from './infrastructure/adapter/secondary/database
       sortSchema: true,
       driver: ApolloDriver,
     }),
-    GraphQLAdapterModule,
+    BacklogItemGraphQLAdapterModule,
+    ProductBacklogGraphQLAdapterModule,
+    UserGraphQLAdapterModule,
 
     /* Secondary Adapter */
     PrismaAdapterModule,

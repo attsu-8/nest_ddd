@@ -22,7 +22,7 @@ services:
           - mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: my-app
+      MYSQL_DATABASE: nest_ddd
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
       TZ: "Asia/Tokyo"
